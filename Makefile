@@ -7,9 +7,11 @@ OBJINC = $(patsubst %, %.o, $(INC))
 
 # LS SOURCE
 SRC += src/start
+SRC += src/store
 
 # GENERAL LIBFT FUNCTIONS
-INC += 
+INC += ft_memalloc
+INC += ft_atoi
 
 # FTPRINTF ?
 INC += src/libft/ftprintf/conversion_diou
