@@ -17,6 +17,23 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include "inc/libft.h"
+# include <stdbool.h>
+
+typedef struct	s_list
+{
+	struct s_list	*next;
+	struct s_list	*prev;
+	char			value;
+	bool			if_NA;
+}				t_list;
+
+typedef struct	s_operator
+{
+	struct s_operator	*next;
+	struct s_operator	*prev;
+	char				op;
+}				t_operator;
+
 
 /* start.c */
 int		main(int argc, char **argv);
