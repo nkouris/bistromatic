@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "bsm.h"
-# include <stdlib.h>
+
 
 /*
 **	Function precedence returns
@@ -24,28 +24,18 @@
 */
 
 
-void	solve_equation(char	op, t_list **start)
+int		precedence(char op1, char op2, int *bracket)
 {
-	if (op == '+')
-		addition(start);
-	if (op == '%')
-		modulo(start);
-	if (op == '/')
-		division(start);
-	if (op == '*')
-		multiplication(start);
-	if (op == '-')
-		substraction(start);
-}
-
-int		precedence(char op1, char op2)
-{
+	printf("%sIM IN PRECEDENCE: op1 %c, op2 %c\n%s", MAGNETA, op1, op2, NORMAL);
 	if (op1 == '-' || op1 == '+')
 		op1 = '1';
 	else if (op1 == '*' || op1 == '/' || op1 == '%')
 		op1 = '2';
 	else if (op1 == '(')
+	{
 		op1 = '3';
+		*bracket = 1;
+	}
 	
 	if (op2 == '(')
 		op2 = '0';
@@ -54,10 +44,11 @@ int		precedence(char op1, char op2)
 	else if (op2 == '*' || op2 == '/' || op2 == '%')
 		op2 = '2';
 	
-	return(int(op1 - op2));
+	printf("%sPRECEDENCE: %d\n%s", MAGNETA, (int)(op1 - op2), NORMAL);
+	return((int)(op1 - op2));
 }
 
-t_list	*add_na(t_list *previous)
+t_list	*add_na(t_list *previous, t_list **start)
 {
 	t_list	*na;
 	
@@ -66,7 +57,8 @@ t_list	*add_na(t_list *previous)
 	na->prev = previous;
 	na->na = true;
 	na->value = '\0';
-	
+	*start = na;
+	printf("%sADD NA:\nna->na = %d\n%s", CYAN, na->na, NORMAL);
 	return (na);
 }
 
@@ -79,9 +71,10 @@ void	add_list_node(char *str, int i, t_list **start)
 	ptr = *start;
 	new = (t_list *)malloc(sizeof(t_list));
 	new->next = ((str[i + 1]) && !(str[i + 1] > 47 && str[i + 1] < 58)) ?
-			add_na(new): NULL;
+			add_na(new, start): NULL;
 	new->na = false;
-	
+	if (ptr != NULL && ptr->prev != NULL)
+		printf("%sBEGIN: node->value = %cn\n%s", GREEN, ptr->prev->value, NORMAL);
 	if (ptr != NULL)
 	{
 		while (ptr->next != NULL)
@@ -94,36 +87,41 @@ void	add_list_node(char *str, int i, t_list **start)
 		*start = new;
 		new->prev = NULL;
 	}
+	new->value = str[i];
+	printf("%sADD LIST NODE:\nnode->value = %c\n%s", GREEN, new->value, NORMAL);
 }
 
-void	push_stack(char op, t_operator *stack)
+void	push_stack(char op, t_operator **stack)
 {
 	t_operator	*sign;
 	t_operator	*head;
-	
-	head = stack;
+
+	head = *stack;
 	sign = (t_operator *)malloc(sizeof(t_operator));
 	sign->next = NULL;
 	sign->op = op;
 	if (head != NULL)
 	{
-		while (stack->next != NULL)
-			stack = stack->next;
-		stack->next = sign;
-		sign->prev = stack;
-		stack = head
+		while ((*stack)->next != NULL)
+			*stack = (*stack)->next;
+		(*stack)->next = sign;
+		sign->prev = *stack;
 	}
 	else
-	{
 		sign->prev = NULL;
-		stack = sign;
+	*stack = sign;
+	
+	while ((*stack)->prev != NULL)
+		*stack = (*stack)->prev;
+	printf("%sSTACK:\n", YELLOW);
+	printf("%c ", (*stack)->op);
+	while ((*stack)->next != NULL)
+	{
+		*stack = (*stack)->next;
+		printf("%c ", (*stack)->op);
 	}
-}
-
-void	pop_stack(t_list **start, t_operator **stack)
-{
-	solve_equation(stack->op, start);
-	free_stack_node(stack);
+	printf("\n%s", NORMAL);
+	*stack = sign;
 }
 
 void	free_stack_node(t_operator **stack)
@@ -131,10 +129,31 @@ void	free_stack_node(t_operator **stack)
 	t_operator *temp;
 	
 	temp = *stack;
-	*stack = *stack->prev
-	free(*temp);
-	*stack->next = NULL;
+	*stack = (*stack)->prev;
+	free(temp);
+	if ((*stack) != NULL)
+	{
+		(*stack)->next = NULL;
+		printf("%sIM IN FREE: stack's pointing at: %c\n%s", BLUE, (*stack)->op, NORMAL);
+	}
+	printf("HERE I AM\n");
 }
+
+void	pop_stack(t_list **start, t_operator **stack)
+{
+	t_operator *head;
+
+	head = *stack;
+	while ((*stack)->next != NULL)
+		*stack = (*stack)->next;
+	printf("I'M IN POP_STACK! start->op: %c\n", (*stack)->op);
+	solve_equation((*stack)->op, start);
+	printf("I'M IN POP_STACK!2\n");
+	free_stack_node(stack);
+	printf("I'M IN POP_STACK!3\n");
+}
+
+
 
 # define IS_OPER(x)			x == '-' || x == '+' || x == '*' || x == '/' || \
 							x == '%' || x == '('
@@ -146,42 +165,95 @@ int		rpn(char *str, t_list **start)
 {
 	t_operator	*stack;
 	int			i;
+	int			bracket;
 	
 	i = 0;
+	bracket = 0;
 	stack = NULL;
 	
 	while (str[i])
 	{
+		printf("HERE i = %d str[i] = %c\n", i, str[i]);
 		if (IS_NUMBER(str[i], str[i + 1]))
 			add_list_node(str, i, start);
 		else if (IS_OPER(str[i]))
 		{
 			if (stack == NULL)
-				push_stack(str[i], NULL);
+				push_stack(str[i], &stack);
 			else
 			{
-				if (precedence(str[i], stack->op) > 0)
+				printf("HERE inside\n");
+				if (precedence(str[i], stack->op, &bracket) > 0)
 					push_stack(str[i], &stack);
 				else
 				{
-					while (precedence(str[i], stack->op) <= 1)
+					printf("HERE inside inside1\n");
+					while (precedence(str[i], stack->op, &bracket) < 1)
+					{
 						pop_stack(start, &stack);
-					solve_equation(str[i], start);
+						
+						if (stack == NULL)
+							break ;
+						
+						
+						t_operator *head;
+						head = stack;
+						while (stack->prev != NULL)
+							stack = stack->prev;
+						printf("%sSTACK:\n", YELLOW);
+						printf("%c ", stack->op);
+						while (stack->next != NULL)
+						{
+							stack = stack->next;
+							printf("%c ", stack->op);
+						}
+						printf("\n%s", NORMAL);
+							stack = head;
+					}
+					printf("HERE inside inside2\n");
+					push_stack(str[i], &stack);
 				}
 			}
 		}
 		else if (str[i] == ')')
 		{
-			while (stack->op != '(')	//pop_stack(start, stack);
+			while (stack && stack->op != '(')
 			{
 				solve_equation(stack->op, start);
 				free_stack_node(&stack);
+				
 			}
 			free_stack_node(&stack);
+			
+			while (stack != NULL && stack->prev != NULL)
+				stack = stack->prev;
+			printf("%sSTACK:\n", YELLOW);
+			if (stack != NULL)
+			{
+			printf("%c ", stack->op);
+			while (stack->next != NULL)
+			{
+				stack = stack->next;
+				printf("%c ", stack->op);
+			}
+			printf("\n%s", NORMAL);
+			}
+			else
+				printf("\n%s", NORMAL);
+				
+			
 		}
+		else if (str[i] == ' ')
+			;
 		else return (1);
 		i++;
 	}
+	if (stack != NULL)
+	{
+		solve_equation(stack->op, start);
+		free_stack_node(&stack);
+	}
+
 	return (0);
 }
 
@@ -190,7 +262,8 @@ int		main(int ac, char **av)
 	t_list *start;
 	
 	start = NULL;
-	printf("RETURNED VALUE:	%d\n", rpn(av[1], &start));
+	if (ac == 2)
+		printf("RETURNED VALUE:	%d\n", rpn(av[1], &start));
 	return (0);
 	
 }
