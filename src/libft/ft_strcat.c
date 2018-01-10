@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 21:15:08 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 20:12:09 by nkouris          ###   ########.fr       */
+/*   Created: 2017/09/19 16:52:56 by nkouris           #+#    #+#             */
+/*   Updated: 2017/09/27 13:39:13 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bsm.h"
-/*
-int		main(int argc, char *argv)
-{
-	t_list	*nlist;
+#include "libft.h"
 
-	if (argc != 3)
-	{
-		ft_putstr("usage: calc [base] [input_size]");
-		return (0);
-	}
-	if (!(new = (t_list *)ft_memalloc(sizeof(t_list)))
-		|| !(readandstore(argv, &new))
-		|| !(operate(&new)))
-		return (0);
-	printresult(new);
+char	*ft_strcat(char *dst, const char *src)
+{
+	char *f_dst;
+
+	f_dst = dst;
+	dst += ft_strlen(dst);
+	while (*src != '\0')
+		*dst++ = *src++;
+	*dst = '\0';
+	return (f_dst);
 }
-*/

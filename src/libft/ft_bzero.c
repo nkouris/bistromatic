@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 21:15:08 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 20:12:09 by nkouris          ###   ########.fr       */
+/*   Created: 2017/09/24 15:04:28 by nkouris           #+#    #+#             */
+/*   Updated: 2017/09/28 23:51:55 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bsm.h"
-/*
-int		main(int argc, char *argv)
-{
-	t_list	*nlist;
+#include "libft.h"
 
-	if (argc != 3)
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned int		i;
+	char				*t;
+
+	t = (char*)s;
+	i = 0;
+	while (i++ < n)
 	{
-		ft_putstr("usage: calc [base] [input_size]");
-		return (0);
+		*t = 0;
+		t++;
 	}
-	if (!(new = (t_list *)ft_memalloc(sizeof(t_list)))
-		|| !(readandstore(argv, &new))
-		|| !(operate(&new)))
-		return (0);
-	printresult(new);
 }
-*/

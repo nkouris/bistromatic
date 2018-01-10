@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 21:15:08 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 20:12:09 by nkouris          ###   ########.fr       */
+/*   Created: 2017/09/20 15:41:55 by nkouris           #+#    #+#             */
+/*   Updated: 2017/12/12 21:28:02 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bsm.h"
-/*
-int		main(int argc, char *argv)
+int		ft_isalpha(int c)
 {
-	t_list	*nlist;
-
-	if (argc != 3)
-	{
-		ft_putstr("usage: calc [base] [input_size]");
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	else
 		return (0);
-	}
-	if (!(new = (t_list *)ft_memalloc(sizeof(t_list)))
-		|| !(readandstore(argv, &new))
-		|| !(operate(&new)))
-		return (0);
-	printresult(new);
 }
-*/

@@ -8,20 +8,23 @@ OBJINC = $(patsubst %, %.o, $(INC))
 # LS SOURCE
 SRC += src/start
 SRC += src/store
+SRC += src/operations
+SRC += src/addition
+
+# FOR TESTING
+SRC += src/testing
 
 # GENERAL LIBFT FUNCTIONS
-INC += ft_memalloc
-INC += ft_atoi
-
-# FTPRINTF ?
-INC += src/libft/ftprintf/conversion_diou
-INC += src/libft/ftprintf/dispatcher
-INC += src/libft/ftprintf/printflags
-INC += src/libft/ftprintf/conversion_sc
-INC += src/libft/ftprintf/storeflags
-INC += src/libft/ftprintf/conversion_xp
-INC += src/libft/ftprintf/misc
-INC += src/libft/ftprintf/ulitobase
+INC += src/libft/ft_memalloc
+INC += src/libft/ft_bzero
+INC += src/libft/ft_memdel
+INC += src/libft/ft_memset
+INC += src/libft/ft_strcat
+INC += src/libft/ft_strcmp
+INC += src/libft/ft_strcpy
+INC += src/libft/ft_strlen
+INC += src/libft/ft_strnew
+INC += src/libft/ft_putstr
 
 all: $(NAME)
 

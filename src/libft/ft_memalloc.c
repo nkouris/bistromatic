@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 21:15:08 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 20:12:09 by nkouris          ###   ########.fr       */
+/*   Created: 2017/09/20 16:38:05 by nkouris           #+#    #+#             */
+/*   Updated: 2017/09/26 17:40:53 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bsm.h"
-/*
-int		main(int argc, char *argv)
-{
-	t_list	*nlist;
+#include "libft.h"
 
-	if (argc != 3)
-	{
-		ft_putstr("usage: calc [base] [input_size]");
+void	*ft_memalloc(size_t size)
+{
+	void *result;
+
+	result = malloc(size);
+	if (!result)
 		return (0);
-	}
-	if (!(new = (t_list *)ft_memalloc(sizeof(t_list)))
-		|| !(readandstore(argv, &new))
-		|| !(operate(&new)))
-		return (0);
-	printresult(new);
+	ft_bzero(result, size);
+	return (result);
 }
-*/

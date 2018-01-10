@@ -6,9 +6,11 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 18:19:35 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/09 19:47:22 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "bsm.h"
 
 int		addition(t_list **head)
 {
@@ -32,6 +34,11 @@ int		addition(t_list **head)
 		runadd(&result, operand1, operand2);
 	else
 		runadd(&result, operand2, operand1);
+	lstdel((*head));
+	(*head) = result;
+	// FOR TESTING, REMOVE
+	readresult(result);
+	return (1);
 }
 
 // ONLY GOOD FOR POSITIVE NUMBERS AT THE MOMENT
