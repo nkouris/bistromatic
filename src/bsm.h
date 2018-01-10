@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 19:26:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/09 20:23:25 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/09 20:35:35 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct	s_operator
 int		main(int argc, char **argv);
 
 /* store.c */
-int		readandstore(char **argv, t_store **nlist);
+int		readandstore(char **argv, t_list **nlist);
 int		indexsymbol(char *basekey, size_t b, t_list *node);
 
 /* addition.c */
