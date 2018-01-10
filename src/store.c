@@ -6,17 +6,20 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:32:02 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 19:43:17 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/09 20:54:09 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		readandstore(char **argv, t_store **nlist)
+#include "bsm.h"
+
+int		readandstore(char **argv, t_list **nlist)
 {
 	int		nin;
 	char	*input_size;
 	char	*input;
 
 	nin = 0;
+	nlist = 0;
 	if (!(input_size = (char *)ft_memalloc(sizeof(argv[2])))
 		|| !(nin = ft_atoi(input_size))
 		|| !(input = (char *)ft_memalloc(nin + 1))
@@ -27,13 +30,17 @@ int		readandstore(char **argv, t_store **nlist)
 		ft_putstr("syntax error");
 		nin = 0;
 	}
-	if (argv[1] != "0123456789" && insize)
+	/*
+	if (ft_strcmp(argv[1], "0123456789") && nin)
 		!base_convert(&(argv[1]), sizeof(argv[1]), input, nlist) ? nin = 0: nin;
+	*/
 	if (!nin)
 		return (0);
+	else
+		return (1);
 }
 
-int		indexsymbol(char *basekey, size_t b, t_list *node)
+int		indexsymbol(char *basekey, int b, t_list *node)
 {
 	int i;
 

@@ -6,15 +6,13 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 19:26:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/09 20:35:35 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/09 21:17:19 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BSM_H
 # define BSM_H
 
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <unistd.h>
 # include "libft/libft.h"
 # include <stdbool.h>
@@ -29,8 +27,10 @@ typedef struct	s_list
 	struct s_list	*prev;
 	char			value;
 	bool			na;
+	bool			isneg;
 	int				symbolindex;
 	int				remainder;
+	int				numlen;
 	int				base;
 }				t_list;
 
@@ -47,7 +47,7 @@ int		main(int argc, char **argv);
 
 /* store.c */
 int		readandstore(char **argv, t_list **nlist);
-int		indexsymbol(char *basekey, size_t b, t_list *node);
+int		indexsymbol(char *basekey, int b, t_list *node);
 
 /* addition.c */
 int		addition(t_list **head);

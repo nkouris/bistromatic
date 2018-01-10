@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 19:47:22 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/09 21:17:25 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,42 +34,42 @@ int		addition(t_list **head)
 		runadd(&result, operand1, operand2);
 	else
 		runadd(&result, operand2, operand1);
-	lstdel((*head));
+//	lstdel((*head));
 	(*head) = result;
 	// FOR TESTING, REMOVE
-	readresult(result);
+//	readresult(result);
 	return (1);
 }
 
 // ONLY GOOD FOR POSITIVE NUMBERS AT THE MOMENT
 
-int		runadd(t_list **result, t_list *top, t_list *bottom)
+int		runadd(t_list **total, t_list *top, t_list *bottom)
 {
 	t_list	*temp;
-	int		add;
+	int		nadd;
 	int		bottomsym;
-	int		base;
+	int		nbase;
 
-	add = 0;
+	nadd = 0;
 	temp = top;
-	base = bottom->base;
+	nbase = bottom->base;
 	while (bottom || temp->remainder)
 	{
-		!bottom ? bottomsym = 0 : bottomsym = bottom->symbolindex;
-		add = bottomsym + (temp->symbolindex + temp->remainder);
-		if (add > base)
+		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
+		nadd = bottomsym + (temp->symbolindex + temp->remainder);
+		if (nadd > nbase)
 		{
-			(temp->prev)->remainder = remaindercalc(add, base)
-			(*result)->symbolindex = add - base;
+			(temp->prev)->remainder = remaindercalc(nadd, nbase);
+			(*total)->symbolindex = nadd - nbase;
 		}
 		else
-			(*result)->symbolindex = add;
+			(*total)->symbolindex = nadd;
 		temp = temp->prev;
 		bottom = bottom->prev;
-		if (!((*result)->prev = (t_list *)ft_memalloc(sizeof(t_list))))
+		if (!((*total)->prev = (t_list *)ft_memalloc(sizeof(t_list))))
 			return (0);
-		((*result)->prev)->next = result;
-		result = result->prev;
+		((*total)->prev)->next = (*total);
+		(*total) = (*total)->prev;
 	}
 	return (1);
 }

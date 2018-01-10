@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 19:47:24 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/09 20:57:24 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 		{
 			i = 1;
 			temp = temp->next;
-			ft_memdel((*head));
+			ft_memdel((void **)&(*head));
 		}
 		while (!(temp->na))
 		{
@@ -35,10 +35,12 @@ int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 			temp = temp->next;
 		}
 		if (temp->next)
-			head = temp->next;
+			(*head) = temp->next;
 		temp->next = 0;
-		(!operand1) ? (*operand1) = sym_lst(temp) : (*operand2) = sym_lst(temp);
+		(!operand1) ? ((*operand1) = sym_lst(temp)) :
+		((*operand2) = sym_lst(temp));
 	}
+	return (1);
 }
 
 t_list	*sym_lst(t_list *temp)
@@ -46,7 +48,7 @@ t_list	*sym_lst(t_list *temp)
 	t_list *op_lo;
 
 	op_lo = temp->prev;
-	ft_memdel(temp);
+	ft_memdel((void **)&temp);
 	op_lo->next = 0;
 	return (op_lo);
 }
@@ -66,6 +68,7 @@ int		operandlen(t_list **operand1, t_list **operand2)
 	while (temp->next)
 		i++;
 	(*operand2)->numlen = i;
+	return (1);
 }
 
 int		remaindercalc(int result, int base)
