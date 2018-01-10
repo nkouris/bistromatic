@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:32:02 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/08 22:53:25 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/09 17:52:34 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,19 @@ int		readandstore(char **argv, t_store **nlist)
 		return (0);
 }
 
-int		base_convert(char **basestr, size_t b)
+int		indexsymbol(char *basekey, size_t b, t_list *node)
 {
+	int i;
 
+	i = 0;
+	while (*basekey != node->value && i++ < b)
+		basekey++;
+	if (i > b)
+	{
+		ft_putstr("syntax error");
+		return (0);
+	}
+	node->base = b;
+	node->symbolindex = i;
+	return (1);
 }
