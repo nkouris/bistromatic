@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include "libft/libft.h"
 # include <stdbool.h>
+# include <stdlib.h>
 
 /* FOR TESTING
 */
