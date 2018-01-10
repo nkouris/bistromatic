@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 21:17:25 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/10 14:37:06 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int		addition(t_list **head)
 	else
 		runadd(&result, operand2, operand1);
 //	lstdel((*head));
+//	lstdel(operand1);
+//	lstdel(operand2);
+
 	(*head) = result;
 	// FOR TESTING, REMOVE
 //	readresult(result);
@@ -43,33 +46,37 @@ int		addition(t_list **head)
 
 // ONLY GOOD FOR POSITIVE NUMBERS AT THE MOMENT
 
-int		runadd(t_list **total, t_list *top, t_list *bottom)
+int		runadd(t_list **result, t_list *top, t_list *bottom)
 {
-	t_list	*temp;
-	int		nadd;
+	int		add;
 	int		bottomsym;
-	int		nbase;
+	int		topsym;
+	int		base;
 
-	nadd = 0;
-	temp = top;
-	nbase = bottom->base;
-	while (bottom || temp->remainder)
+	add = 0;
+	base = bottom->base;
+	while ((*result)->remainder || top)
 	{
-		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
-		nadd = bottomsym + (temp->symbolindex + temp->remainder);
-		if (nadd > nbase)
-		{
-			(temp->prev)->remainder = remaindercalc(nadd, nbase);
-			(*total)->symbolindex = nadd - nbase;
-		}
-		else
-			(*total)->symbolindex = nadd;
-		temp = temp->prev;
-		bottom = bottom->prev;
-		if (!((*total)->prev = (t_list *)ft_memalloc(sizeof(t_list))))
+		if (!((*result)->prev = (t_list *)ft_memalloc(sizeof(t_list))))
 			return (0);
-		((*total)->prev)->next = (*total);
-		(*total) = (*total)->prev;
+		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
+		!top ? (topsym = 0) : (topsym = top->symbolindex);
+		add = bottomsym + (topsym + (*result)->remainder);
+		if (add > base) 
+			addremainder(result, add, base);
+		else
+			(*result)->symbolindex = add;
+		!bottom ? bottom : (bottom = bottom->prev);
+		!top ? top : (top = top->prev);
+		((*result)->prev)->next = (*result);
+		(*result) = (*result)->prev;
 	}
 	return (1);
+}
+
+void	addremainder(t_list **result, int add, int base)
+{
+	(*result)->symbolindex = add - base;
+	add = ((add - (add - base)) / base);
+	((*result)->prev)->remainder = ((base - (add - base)) / base);
 }

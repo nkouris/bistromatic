@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 20:57:24 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/10 14:37:00 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 		if (temp->next)
 			(*head) = temp->next;
 		temp->next = 0;
-		(!operand1) ? ((*operand1) = sym_lst(temp)) :
-		((*operand2) = sym_lst(temp));
+		(!(*operand1)) ? ((*operand1) = sym_lst(temp))
+		: ((*operand2) = sym_lst(temp));
 	}
 	return (1);
 }
@@ -60,23 +60,19 @@ int		operandlen(t_list **operand1, t_list **operand2)
 
 	temp = (*operand1);
 	i = 0;
-	while (temp->next)
+	while (temp)
+	{
 		i++;
+		temp = temp->prev;
+	}
 	(*operand1)->numlen = i;
 	temp = (*operand2);
 	i = 0;
-	while (temp->next)
+	while (temp)
+	{
 		i++;
+		temp = temp->prev;
+	}
 	(*operand2)->numlen = i;
 	return (1);
-}
-
-int		remaindercalc(int result, int base)
-{
-	int	i;
-
-	i = 1;
-	while (base < result)
-		base = base * i++;
-	return (base - result);
 }

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 19:26:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/09 21:17:19 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/10 12:17:21 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		indexsymbol(char *basekey, int b, t_list *node);
 /* addition.c */
 int		addition(t_list **head);
 int		runadd(t_list **result, t_list *top, t_list *bottom);
+void	addremainder(t_list **result, int add, int base);
 
 /* operations.c */
 int		operandsplit(t_list **head, t_list **operand1, t_list **operand2);
