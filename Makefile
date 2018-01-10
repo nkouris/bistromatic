@@ -10,9 +10,8 @@ SRC += src/start
 SRC += src/store
 SRC += src/operations
 SRC += src/addition
-
-# FOR TESTING
-SRC += src/testing
+SRC += src/rpn
+SRC += src/tools
 
 # GENERAL LIBFT FUNCTIONS
 INC += src/libft/ft_memalloc
