@@ -6,9 +6,11 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/09 18:19:33 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/09 19:47:24 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "bsm.h"
 
 int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 {
@@ -16,7 +18,7 @@ int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 	int		i;
 
 	i = 0;
-	while (!(*head)->isoperator || !(*head)->if_na)
+	while (!(*head)->na)
 	{
 		temp = (*head);
 		temp->prev = 0;
@@ -24,9 +26,9 @@ int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 		{
 			i = 1;
 			temp = temp->next;
-			remove_onenode((*head));
+			ft_memdel((*head));
 		}
-		while (!(temp->if_na))
+		while (!(temp->na))
 		{
 			if (i)
 				temp->isneg = 1;
@@ -35,8 +37,18 @@ int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 		if (temp->next)
 			head = temp->next;
 		temp->next = 0;
-		(!operand1) ? (*operand1) = temp->prev : (*operand2) = temp->prev;
+		(!operand1) ? (*operand1) = sym_lst(temp) : (*operand2) = sym_lst(temp);
 	}
+}
+
+t_list	*sym_lst(t_list *temp)
+{
+	t_list *op_lo;
+
+	op_lo = temp->prev;
+	ft_memdel(temp);
+	op_lo->next = 0;
+	return (op_lo);
 }
 
 int		operandlen(t_list **operand1, t_list **operand2)
