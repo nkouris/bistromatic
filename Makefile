@@ -12,6 +12,8 @@ SRC += src/operations
 SRC += src/addition
 SRC += src/rpn
 SRC += src/tools
+SRC += src/stack
+SRC += src/linked_list
 
 # GENERAL LIBFT FUNCTIONS
 INC += src/libft/ft_memalloc

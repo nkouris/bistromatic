@@ -71,6 +71,19 @@ int		operandlen(t_list **operand1, t_list **operand2);
 int		remaindercalc(int result, int base);
 
 /* tools.c */
+int		precedence(char op1, char op2);
 void	solve_equation(char	op, t_list **start);
+
+/* rpn.c */
+int		rpn(char *str, t_list **start);
+
+/* stack.c */
+void	free_stack_node(t_operator **stack);
+void	push_stack(char op, t_operator **stack);
+void	pop_stack(t_list **start, t_operator **stack);
+
+/* linked_list.c */
+t_list	*add_na(t_list *previous, t_list **start);
+void	add_list_node(char *str, int i, t_list **start);
 
 #endif
