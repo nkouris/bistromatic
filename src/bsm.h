@@ -73,6 +73,8 @@ int		remaindercalc(int result, int base);
 
 /* tools.c */
 int		precedence(char op1, char op2);
+int		ft_strxcmp(char c, char *basekey);
+int		validate_input(char *str, char *basekey);
 void	solve_equation(char	op, t_list **start);
 
 /* rpn.c */
@@ -85,6 +87,6 @@ void	pop_stack(t_list **start, t_operator **stack);
 
 /* linked_list.c */
 t_list	*add_na(t_list *previous, t_list **start);
-void	add_list_node(char *str, int i, t_list **start);
+void	add_list_node(char *str, int i, t_list **start, char *basekey);
 
 #endif
