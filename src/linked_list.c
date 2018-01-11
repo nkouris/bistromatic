@@ -21,13 +21,14 @@ t_list	*add_na(t_list *previous, t_list **start)
 	na->prev = previous;
 	na->na = true;
 	na->value = '\0';
+	na->numlen = 0;
 	*start = na;
 //	printf("%sADD NA:\nna->na = %d\n%s", CYAN, na->na, NORMAL);
 	return (na);
 }
 
 
-void	add_list_node(char *str, int i, t_list **start)
+void	add_list_node(char *str, int i, t_list **start, char *basekey)
 {
 	t_list	*ptr;
 	t_list	*new;
@@ -46,11 +47,15 @@ void	add_list_node(char *str, int i, t_list **start)
 			ptr = ptr->next;
 		ptr->next = new;
 		new->prev = ptr;
+		new->numlen = (str[i] == '-') ? 0 : ptr->numlen + 1;
+		new->base = ptr->base;
 	}
 	else
 	{
 		*start = new;
 		new->prev = NULL;
+		new->numlen = (str[i] == '-') ? 0 : 1;
+		new->base = ft_strlen(basekey);
 	}
 
 //	//if you want to see how the final list is building, uncomment up to 73 line
@@ -71,4 +76,7 @@ void	add_list_node(char *str, int i, t_list **start)
 //		while ((*start)->prev != NULL)
 //			*start = (*start)->prev;
 //	}
+	
+//	printf("%sONE NODE:\nstart->value: [%c]\nstart->numlen: [%d]\n%s", GREEN, \
+//		   new->value, new->numlen, NORMAL);
 }

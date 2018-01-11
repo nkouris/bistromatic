@@ -13,10 +13,9 @@
 #include "bsm.h"
 
 
-# define IS_OPER(x)			x == '-' || x == '+' || x == '*' || x == '/' || \
-							x == '%' || x == '('
-# define IS_BASEKEY(x, x1)	(x == '-' && x1 && x1 > 47 && x1 < 58) || \
-							(x > 47 && x < 58)
+# define IS_OPER(x)		x == '-' || x == '+' || x == '*' || x == '/' || \
+						x == '%' || x == '('
+
 
 void	rpn2(char *str, int i, t_list **start, t_operator **stack)
 {
@@ -56,18 +55,20 @@ void	rpn2(char *str, int i, t_list **start, t_operator **stack)
 }
 
 
-int		rpn(char *str, t_list **start)
+int		rpn(t_list **start, char *str, char *basekey)
 {
 	t_operator	*stack;
 	int			i;
 	
 	i = 0;
 	stack = NULL;
+	
 	while (str[i])
 	{
 //		printf("HERE i = %d str[i] = %c\n", i, str[i]);
-		if (IS_BASEKEY(str[i], str[i + 1]))
-			add_list_node(str, i, start);
+		if (ft_strxcpy(str[i], base) == 1 ||
+			(str[i + 1] && ft_strxcpy(str[i + 1], base) == 1))
+			add_list_node(str, i, start, basekey);
 		else if (IS_OPER(str[i]))
 			rpn2(str, i, start, &stack);
 		else if (str[i] == ')')
@@ -91,8 +92,6 @@ int		rpn(char *str, t_list **start)
 //			else
 //				printf("\n%s", NORMAL);
 		}
-		else if (str[i] == ' ')
-			;
 		else return (1);
 		i++;
 	}
@@ -101,14 +100,14 @@ int		rpn(char *str, t_list **start)
 	return (0);
 }
 
-int		main(int ac, char **av)
-{
-	t_list *start;
-	
-	start = NULL;
-	if (ac == 2)
-		printf("RETURNED VALUE:	%d\n", rpn(av[1], &start));
-	return (0);
-	
-}
+//int		main(int ac, char **av)
+//{
+//	t_list *start;
+//	
+//	start = NULL;
+//	if (ac == 2)
+//		printf("RETURNED VALUE:	%d\n", rpn(av[1], &start));
+//	return (0);
+//	
+//}
 

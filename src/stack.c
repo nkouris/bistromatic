@@ -29,11 +29,6 @@ void	free_stack_node(t_operator **stack)
 
 void	pop_stack(t_list **start, t_operator **stack)
 {
-//	t_operator *head;
-//
-//	head = *stack;
-//	while ((*stack)->next != NULL)
-//		*stack = (*stack)->next;
 //	printf("I'M IN POP_STACK! start->op: %c\n", (*stack)->op);
 	solve_equation((*stack)->op, start);
 //	printf("I'M IN POP_STACK!2\n");
@@ -61,7 +56,7 @@ void	push_stack(char op, t_operator **stack)
 		sign->prev = NULL;
 	*stack = sign;
 	
-//	//if you want to see how the stack is building, uncomment up to 73 line
+//	//if you want to see how the stack is building, uncomment code below
 //	while ((*stack)->prev != NULL)
 //		*stack = (*stack)->prev;
 //	printf("%sSTACK:\n", YELLOW);

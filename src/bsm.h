@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 19:26:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/10 12:17:21 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/10 22:05:30 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_list
 	struct s_list	*next;
 	struct s_list	*prev;
 	char			value;
+	char			*basekey;
 	bool			na;
 	bool			isneg;
 	int				symbolindex;
