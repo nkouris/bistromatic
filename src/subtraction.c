@@ -6,9 +6,11 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:07:37 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/10 22:05:48 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/11 00:34:24 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "bsm.h"
 
 int		subtraction(t_list **head)
 {
@@ -24,15 +26,9 @@ int		subtraction(t_list **head)
 	if (!(result = (t_list *)ft_memalloc(sizeof(t_list))))
 		return (0);
 	operandsplit(head, &operand1, &operand2);
-	/*
-	operandlen(&operand1, &operand2);
-	*/
 	max = maxindex(&operand1, &operand2);
-	// Use values as |absval|
-	error = subnegtrack(&result, operand1, operand2);
-	if (!(*result)->next)
-		error = runsubtraction(&result, operand1, operand2);
-	lstdel((*head));
+	error = subnegtrack(&result, operand1, operand2, max);
+	lstdel(*head);
 	lstdel(operand1);
 	lstdel(operand2);
 	(*head) = result;
@@ -97,8 +93,18 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 	{
 		if (!((*result)->prev = (t_list *)ft_memalloc(sizeof(t_list))))
 			return (0);
+		((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
 		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);
-		sub = (topsym + (*result)->remainder) - bottomsym
+		sub = (topsym + (*result)->remainder) - bottomsym;
+		if (sub < 0)
+			sub = ((*result)->prev)->remainder;
+		else
+			sub = (*result)->symbolindex;
+		!bottom ? bottom : (bottom = bottom->prev);
+		!top ? top : (top = top->prev);
+		((*result)->prev)->next = (*result);
+		(*result) = (*result)->prev;
 	}
+	return (1);
 }

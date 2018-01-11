@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/10 22:05:46 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/11 01:54:08 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,7 @@ t_list	*sym_lst(t_list *temp)
 	op_lo->next = 0;
 	return (op_lo);
 }
-/* MAY NOT BE NECESSARY
-int		operandlen(t_list **operand1, t_list **operand2)
-{
-	t_list	*temp;
-	int		i;
 
-	temp = (*operand1);
-	i = 0;
-	while (temp)
-	{
-		i++;
-		temp = temp->prev;
-	}
-	(*operand1)->numlen = i;
-	temp = (*operand2);
-	i = 0;
-	while (temp)
-	{
-		i++;
-		temp = temp->prev;
-	}
-	(*operand2)->numlen = i;
-	return (1);
-}
-*/
 int		maxindex(t_list **operand1, t_list **operand2)
 {
 	t_list *temp1;
