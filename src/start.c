@@ -16,6 +16,7 @@ int		main(int argc, char **argv)
 {
 	t_list	*new;
 	char	*input_base[2];
+	int		base;
 
 	if (argc != 3)
 	{
