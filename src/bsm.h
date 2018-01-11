@@ -58,7 +58,7 @@ int		main(int argc, char **argv);
 
 /* store.c */
 int		readandstore(char **argv, char **input_base, int *base);
-int		indexsymbol(char *basekey, int b, t_list *node);
+int		indexsymbol(int b, t_list *node);
 
 /* addition.c */
 int		addition(t_list **head);
