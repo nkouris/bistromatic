@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   division.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 16:26:19 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 15:08:31 by nkouris          ###   ########.fr       */
+/*   Created: 2018/01/11 16:41:42 by nkouris           #+#    #+#             */
+/*   Updated: 2018/01/11 19:27:27 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	lstdel(t_list *start)
-{
-	t_list *temp;
+#include "bsm.h"
 
-	if (*((*start)->basekey))
-		free((void *)((*start)->basekey));
-	if ((*start)->next)
-	{
-		while ((*start))
-		{
-			temp = (*start)->next;
-			free((void *)(*start));
-			(*start) = temp;
-		}
-	}
-	else
-	{
-		while ((*start))
-		{
-			temp = (*start)->prev;
-			free((void *)(*start));
-			(*start) = temp;
-		}
-	}
+int		rundiv(t_list **result, t_list **dividend, t_list **divisor, int max)
+{
+
 }

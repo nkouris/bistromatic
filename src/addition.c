@@ -6,36 +6,13 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 01:54:10 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/11 18:28:41 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsm.h"
 
-int		addition(t_list **head)
-{
-	t_list	*result;
-	t_list	*operand1;
-	t_list	*operand2;
-	int		error;
-	int		max;
-
-	operand1 = 0;
-	operand2 = 0;
-	error = 1;
-	if (!(result = (t_list *)ft_memalloc(sizeof(t_list))))
-		return (0);
-	operandsplit(head, &operand1, &operand2);
-	max = maxindex(&operand1, &operand2);
-	error = subaddtrack(result, operand1, operand2, max)
-	lstdel(*head);
-	lstdel(operand1);
-	lstdel(operand2);
-	(*head) = result;
-	return (error);
-}
-
-int		subaddtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
+int		addtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 {
 	if (max = 1)
 	{
@@ -53,7 +30,7 @@ int		subaddtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 			(*result)->isneg = 1;
 		return (runadd(result, operand2, operand1));
 	}
-	return (1);
+	return (0);
 }
 
 int		runadd(t_list **result, t_list *top, t_list *bottom)
