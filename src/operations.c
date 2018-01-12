@@ -6,11 +6,40 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 01:54:08 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:27:50 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsm.h"
+
+int		sendoperands(t_list **head, char op)
+{
+	t_list	*result;
+	t_list	*operand1;
+	t_list	*operand2;
+	int		error;
+	int		max;
+
+	operand1 = 0;
+	operand2 = 0;
+	error = 1;
+	if (!(result = (t_list *)ft_memalloc(sizeof(t_list)))
+		|| !((*result)->next = (t_list *)ft_memalloc(sizeof(t_list))))
+		return (0);
+	((*result)->next)->na = 1;
+	operandsplit(head, &operand1, &operand2);
+	max = maxindex(&operand1, &operand2, op);
+	op = '+' ? error = addtrack(&result, &operand1, &operand2, max) : error;
+	op = '-' ? error = subtrack(&result, &operand1, &operand2, max) : error;
+	op = '*' ? error = multrack(&result, &operand1, &operand2, max) : error;
+	op = '/' ? error = rundiv(&result, &operand1, &operand2, max) : error;
+	op = '%' ? error = rundiv(&result, &operand1, &operand2, max) : error;
+	lstdel(*head);
+	lstdel(operand1);
+	lstdel(operand2);
+	(*head) = result;
+	return (error);
+}
 
 int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 {
@@ -53,13 +82,15 @@ t_list	*sym_lst(t_list *temp)
 	return (op_lo);
 }
 
-int		maxindex(t_list **operand1, t_list **operand2)
+int		maxindex(t_list **operand1, t_list **operand2, char op)
 {
 	t_list *temp1;
 	t_list *temp2;
 
 	temp1 = (*operand1);
 	temp2 = (*operand2);
+	if (op == '/' || op == '%')
+		return (3)
 	while (temp1->value && temp2->value)
 	{
 		temp1 = temp1->prev;
