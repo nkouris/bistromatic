@@ -12,7 +12,17 @@
 
 #include "bsm.c"
 
-int		printresult(t_list *new)
+void	printresult(t_list *list)
 {
+	t_list *start;
+
+	start = list;
+	while (list != NULL)
+	{
+		if (list->na == false)
+			write(1, &(list->value), 1);
+		list = list->next;
+	}
+	list = start;
 	return (0);
 }

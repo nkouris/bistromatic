@@ -102,7 +102,7 @@ int		handle_signs(char **head, char *base, char *new, int *brij)
 **	- brij[3] <-- j (iterate through new);
 */
 
-int		validate_input(char **head, char *base)
+int		valid_input(char **head, char *base)
 {
 	static int	brij[4];
 	char		*new;
@@ -130,3 +130,22 @@ int		validate_input(char **head, char *base)
 	*head = new;
 	return (brij[0] == 0 ? 0 : -1);
 }
+
+int		validation(char **head, char *base)
+{
+	if (valid_input(head, base) == -1)
+	{
+		write(1, "syntax error\n", 13);
+		return (-1);
+	}
+	return (0);
+}
+
+//int		main(int ac, char **av)
+//{
+//	if (!(validation(&(av[1]), av[2])))
+//		return 0;
+//	printf("[%s]\n", av[1]);
+//	return 0;
+//}
+

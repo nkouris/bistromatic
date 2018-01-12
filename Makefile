@@ -12,6 +12,7 @@ SRC += src/operations
 SRC += src/addition
 SRC += src/substraction
 SRC += src/multiplication
+SRC += src/division
 SRC += src/rpn
 SRC += src/stack
 SRC += src/linked_list

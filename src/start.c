@@ -25,7 +25,8 @@ int		main(int argc, char **argv)
 	}
 	new = 0;
 	base = 0;
-	if (!(readandstore(argv, input_base, &base))
+	if (!(readandstore(argv, input_base, &base)
+		|| !(validation(&(input_base[0]), input_base[1]))
 		|| !(rpn(&new, input_base[0], input_base[1])))
 		return (0);
 	printresult(new);

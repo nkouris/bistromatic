@@ -89,9 +89,9 @@ t_list	*add_na(t_list *previous, t_list **start);
 void	add_list_node(char *str, int i, t_list **start, char *basekey);
 
 /* print.c */
-int		printresult(t_list *new);
+void	printresult(t_list *list);
 
 /* validation.c */
-int		validate_input(char **str, char *base);
+int		validation(char **head, char *base);
 
 #endif
