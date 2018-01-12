@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 00:34:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 01:54:06 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/11 16:41:55 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int		multiplication(t_list **head)
 	operand1 = 0;
 	operand2 = 0;
 	error = 1;
-	if (!(result = (t_list *)ft_memalloc(sizeof(t_list))))
+	if (!(result = (t_list *)ft_memalloc(sizeof(t_list)))
+		|| !((*result)->next = (t_list *)ft_memalloc(sizeof(t_list))))
 		return (0);
+	((*result)->next)->na = 1;
 	operandsplit(head, &operand1, &operand2);
 	max = maxindex(&operand1, &operand2);
 	error = submultrack(result, operand1, operand2, max);
@@ -46,7 +48,6 @@ int		submultrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 
 int		runmul(t_list **result, t_list *top, t_list *bottom)
 {
-	t_list	*resultpre;
 	int	mul;
 	int	bottomsym;
 	int	topsym;
@@ -54,20 +55,15 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 	int	addlevel;
 
 	mul = 0;
-	addlevel = 1;
+	addlevel = 0;
 	base = bottom->base;
-	while ((*result)->remainder || top)
+	while (bottom)
 	{
-		!bottom ? (bottomsym = 1) : (bottomsym = bottom->symbolindex);
-		// magnitude track
-		addlevel > 1 ? resultpre = (*result) : resultpre = 0;
-		// add a magnitude pusher as the loop progresses through symbol indices
+		bottomsym = bottom->symbolindex;
 		while ((*result)->remainder || top)
 		{
 			if (!((*result)->prev = (t_list *)ft_memalloc(sizeof(t_list))))
 				return (0);
-			if (addlevel > 1 && !(*result)->next)
-				mulmagpush(result, addlevel);
 			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
 			!top ? (topsym = 0) : (topsym = top->symbolindex);
 			mul = (bottomsym * topsym) + (*result)->remainder;
@@ -79,21 +75,37 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 			((*result)->prev)->next = (*result);
 			(*result) = (*result)->prev;
 		}
-		if (addlevel++ > 1)
-		// add difference between magnitude levels, using result for next calc
-			runadd(result
-		!bottom ? bottom : (bottom = bottom->prev);
+		addlevel++;
+		bottom = bottom->prev;
+		if (addlevel > 1)
+		{
+			addition(result);
+			mulmagpush(result, 0);
+		}
+		if (bottom)
+		   	mulmagpush(result, addlevel);
 	}
 	return (1);
 }
 
 int		mulmagpush(t_list **result, int addlevel)
 {
-	// complete to push level, and apply result accordingly
-	addlevel -= 1;
-	while (addlevel--)
+	if (addlevel)
 	{
-		if (!(*result)->prev = 
+		(*result)->na = 1;
+		while (addlevel-- > -1)
+		{
+			if (!(*result)->prev = (t_list *)ft_memalloc(sizeof(t_list)))
+				return (0);
+			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
+			((*result)->prev)->next = (*result);
+			(*result) = (*result)->prev;
+			addlevel > 0 ? (*result)->symbolindex = 0 : (*result)->symbolindex;
+		}
+		return (1);
+	}
+	while (result->next)
+		(*result) = (*result->next);
 }
 
 void	mulremainder(t_list **result, int mul, int base)
