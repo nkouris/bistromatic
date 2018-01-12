@@ -73,8 +73,7 @@ int		remaindercalc(int result, int base);
 
 /* tools.c */
 int		precedence(char op1, char op2);
-int		ft_strxcmp(char c, char *basekey);
-int		validate_input(char *str, char *basekey);
+int		ft_find(char c, char *base);
 void	solve_equation(char	op, t_list **start);
 
 /* rpn.c */
@@ -91,5 +90,8 @@ void	add_list_node(char *str, int i, t_list **start, char *basekey);
 
 /* print.c */
 int		printresult(t_list *new);
+
+/* validation.c */
+int		validate_input(char **str, char *base);
 
 #endif
