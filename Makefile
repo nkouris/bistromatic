@@ -10,10 +10,16 @@ SRC += src/start
 SRC += src/store
 SRC += src/operations
 SRC += src/addition
+SRC += src/substraction
+SRC += src/multiplication
+SRC += src/division
 SRC += src/rpn
-SRC += src/tools
 SRC += src/stack
 SRC += src/linked_list
+SRC += src/print
+SRC += src/tools
+SRC += src/cleanup
+SRC += src/validation
 
 # GENERAL LIBFT FUNCTIONS
 INC += src/libft/ft_memalloc

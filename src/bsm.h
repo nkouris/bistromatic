@@ -57,8 +57,8 @@ typedef struct	s_operator
 int		main(int argc, char **argv);
 
 /* store.c */
-int		readandstore(char **argv, t_list **nlist);
-int		indexsymbol(char *basekey, int b, t_list *node);
+int		readandstore(char **argv, char **input_base, int *base);
+int		indexsymbol(int b, t_list *node);
 
 /* addition.c */
 int		addition(t_list **head);
@@ -73,12 +73,11 @@ int		remaindercalc(int result, int base);
 
 /* tools.c */
 int		precedence(char op1, char op2);
-int		ft_strxcmp(char c, char *basekey);
-int		validate_input(char *str, char *basekey);
+int		ft_find(char c, char *base);
 void	solve_equation(char	op, t_list **start);
 
 /* rpn.c */
-int		rpn(char *str, t_list **start);
+int		rpn(t_list **start, char *str, char *basekey);
 
 /* stack.c */
 void	free_stack_node(t_operator **stack);
@@ -88,5 +87,11 @@ void	pop_stack(t_list **start, t_operator **stack);
 /* linked_list.c */
 t_list	*add_na(t_list *previous, t_list **start);
 void	add_list_node(char *str, int i, t_list **start, char *basekey);
+
+/* print.c */
+void	printresult(t_list *list);
+
+/* validation.c */
+int		validation(char **head, char *base);
 
 #endif
