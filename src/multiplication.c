@@ -6,36 +6,13 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 00:34:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 16:41:55 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/11 18:31:28 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		multiplication(t_list **head)
-{
-	t_list	*result;
-	t_list	*operand1;
-	t_list	*operand2;
-	int		error;
-	int		max;
+#include "bsm.h"
 
-	operand1 = 0;
-	operand2 = 0;
-	error = 1;
-	if (!(result = (t_list *)ft_memalloc(sizeof(t_list)))
-		|| !((*result)->next = (t_list *)ft_memalloc(sizeof(t_list))))
-		return (0);
-	((*result)->next)->na = 1;
-	operandsplit(head, &operand1, &operand2);
-	max = maxindex(&operand1, &operand2);
-	error = submultrack(result, operand1, operand2, max);
-	lstdel(*head);
-	lstdel(operand1);
-	lstdel(operand2);
-	(*head) = result;
-	return (error);
-}
-
-int		submultrack(t_list **result, t_list *operand1, t_list *operand2, int max)
+int		multrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 {
 	if (operand1->isneg || operand2->isneg)
 		(*result)->isneg = 1;
@@ -43,7 +20,7 @@ int		submultrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 		return (runmul(result, operand1, operand2));
 	else if (max = 2)
 		return (runmul(result, operand2, operand1));
-	return (1);
+	return (0);
 }
 
 int		runmul(t_list **result, t_list *top, t_list *bottom)
