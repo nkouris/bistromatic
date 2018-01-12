@@ -14,22 +14,24 @@
 
 void	solve_equation(char	op, t_list **start)
 {
-	t_list *tets;
+	t_list *top;
+	t_list *bottom;
+
+	top = *start;
+	while ((*start)->next != NULL)
+		*start = (*start)->next;
+	bottom = *start;
 	
-	tets = *start;
-	op = 'b';
-//	if (op == '+')
-//		addition(start);
-//	printf("IM IN SOLVE! op = %c\n", op);
-	
+	if (op == '+')
+		runadd(start, top, bottom);
 	//	if (op == '%')
 	//		modulo(start);
 	//	if (op == '/')
 	//		division(start);
-	//	if (op == '*')
-	//		multiplication(start);
-	//	if (op == '-')
-	//		substraction(start);
+	if (op == '*')
+		runmul(start, top, bottom);
+	if (op == '-')
+		runsub(start, top, bottom);
 }
 
 /*
