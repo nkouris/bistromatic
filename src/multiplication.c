@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 00:34:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 19:27:45 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:29:59 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 		bottomsym = bottom->symbolindex;
 		while ((*result)->remainder || top)
 		{
-			if (!((*result)->prev = (t_list *)ft_memalloc(sizeof(t_list))))
+			if (!listhookup(result, 1, 0))
 				return (0);
 			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
 			!top ? (topsym = 0) : (topsym = top->symbolindex);
@@ -49,7 +49,6 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 			else
 				(*result)->symbolindex = mul;
 			!top ? top : (top = top->prev);
-			((*result)->prev)->next = (*result);
 			(*result) = (*result)->prev;
 		}
 		addlevel++;
@@ -72,10 +71,9 @@ int		mulmagpush(t_list **result, int addlevel)
 		(*result)->na = 1;
 		while (addlevel-- > -1)
 		{
-			if (!(*result)->prev = (t_list *)ft_memalloc(sizeof(t_list)))
+			if (!listhookup(result, 1, 0))
 				return (0);
 			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
-			((*result)->prev)->next = (*result);
 			(*result) = (*result)->prev;
 			addlevel > 0 ? (*result)->symbolindex = 0 : (*result)->symbolindex;
 		}

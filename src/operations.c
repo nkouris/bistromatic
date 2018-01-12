@@ -6,13 +6,13 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 19:27:50 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:29:56 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsm.h"
 
-int		sendoperands(t_list **head, char op)
+int		sendoperands(t_list **head, char op, bool delhead)
 {
 	t_list	*result;
 	t_list	*operand1;
@@ -24,9 +24,8 @@ int		sendoperands(t_list **head, char op)
 	operand2 = 0;
 	error = 1;
 	if (!(result = (t_list *)ft_memalloc(sizeof(t_list)))
-		|| !((*result)->next = (t_list *)ft_memalloc(sizeof(t_list))))
+		|| !(nexthookup(result, 0, 1)))
 		return (0);
-	((*result)->next)->na = 1;
 	operandsplit(head, &operand1, &operand2);
 	max = maxindex(&operand1, &operand2, op);
 	op = '+' ? error = addtrack(&result, &operand1, &operand2, max) : error;
@@ -34,10 +33,14 @@ int		sendoperands(t_list **head, char op)
 	op = '*' ? error = multrack(&result, &operand1, &operand2, max) : error;
 	op = '/' ? error = rundiv(&result, &operand1, &operand2, max) : error;
 	op = '%' ? error = rundiv(&result, &operand1, &operand2, max) : error;
-	lstdel(*head);
+	// delhead to protect recursion of division head, which is a composite of 
+	// the divisor and temporary dividend
+// wrap lstdel with return value 
+	delhead ? error = lstdel(*head) : error;
 	lstdel(operand1);
 	lstdel(operand2);
 	(*head) = result;
+// fill node->value with index value corresponding symbol
 	return (error);
 }
 
@@ -90,17 +93,17 @@ int		maxindex(t_list **operand1, t_list **operand2, char op)
 	temp1 = (*operand1);
 	temp2 = (*operand2);
 	if (op == '/' || op == '%')
-		return (3)
-	while (temp1->value && temp2->value)
+		return (4)
+	while (temp1->prev && temp2->prev)
 	{
 		temp1 = temp1->prev;
 		temp2 = temp2->prev;
 	}
-	if (temp1->value && !temp2->value)
+	if (temp1->prev && !temp2->prev)
 		return (1);
-	if (temp2->value && !temp1->value)
+	if (temp2->prev && !temp1->prev)
 		return (2);
-	while (temp1->value)
+	while (!temp1->na)
 	{
 		if (temp1->symbolindex > temp2->symbolindex)
 			return (1);
@@ -109,5 +112,24 @@ int		maxindex(t_list **operand1, t_list **operand2, char op)
 		temp1 = temp1->next;
 		temp2 = temp2->next;
 	}
-	return (0);
+	return (3);
 }
+
+int		listhookup(t_list **node, bool prev, bool na)
+{
+	if (!prev)
+	{
+		if (!((*node)->next = ft_memalloc(sizeof(t_list))))
+			return (0);
+		if (na)
+			((*node)->next)->na = 1;
+		((*node)->next)->prev = (*node);
+	}
+	else
+	{
+		if (!((*node)->prev = ft_memalloc(sizeof(t_list))))
+			return (0);
+		((*node)->prev)->next = (*node);
+	}
+	return (1);
+}	
