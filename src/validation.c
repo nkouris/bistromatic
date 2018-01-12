@@ -140,12 +140,3 @@ int		validation(char **head, char *base)
 	}
 	return (0);
 }
-
-//int		main(int ac, char **av)
-//{
-//	if (!(validation(&(av[1]), av[2])))
-//		return 0;
-//	printf("[%s]\n", av[1]);
-//	return 0;
-//}
-
