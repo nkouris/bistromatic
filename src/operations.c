@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 18:31:31 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:27:50 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		sendoperands(t_list **head, char op)
 	op = '+' ? error = addtrack(&result, &operand1, &operand2, max) : error;
 	op = '-' ? error = subtrack(&result, &operand1, &operand2, max) : error;
 	op = '*' ? error = multrack(&result, &operand1, &operand2, max) : error;
-	op = '/' ? error = divtrack(&result, &operand1, &operand2, max) : error;
-	op = '%' ? error = divtrack(&result, &operand1, &operand2, max) : error;
+	op = '/' ? error = rundiv(&result, &operand1, &operand2, max) : error;
+	op = '%' ? error = rundiv(&result, &operand1, &operand2, max) : error;
 	lstdel(*head);
 	lstdel(operand1);
 	lstdel(operand2);
