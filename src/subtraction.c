@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:07:37 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 19:27:42 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:29:57 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 	base = bottom->base;
 	while ((*result)->remainder || top)
 	{
-		if (!((*result)->prev = (t_list *)ft_memalloc(sizeof(t_list))))
+		if (!listhookup(result, 1, 0))
 			return (0);
 		((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
 		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
@@ -63,7 +63,6 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 			sub = (*result)->symbolindex;
 		!bottom ? bottom : (bottom = bottom->prev);
 		!top ? top : (top = top->prev);
-		((*result)->prev)->next = (*result);
 		(*result) = (*result)->prev;
 	}
 	return (1);

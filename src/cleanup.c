@@ -6,11 +6,11 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 16:26:19 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/11 15:08:31 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/12 14:40:33 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	lstdel(t_list *start)
+int		lstdel(t_list *start)
 {
 	t_list *temp;
 
