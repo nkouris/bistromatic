@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 00:34:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 03:40:26 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 14:13:19 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		multrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 {
+	printf("MulTRack\n");
 	if (operand1->isneg || operand2->isneg)
 		(*result)->isneg = 1;
 	if (max == 1)
@@ -36,7 +37,7 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 	addlevel = 0;
 	base = (*result)->base;
 	ttop = top;
-//	printf("Run mul\n");
+printf("Run mul\n");
 	while (bottom)
 	{
 		bottomsym = bottom->symbolindex;
@@ -46,7 +47,7 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 				return (0);
 			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
 			!top ? (topsym = 0) : (topsym = top->symbolindex);
-//		printf("topsym: %d * botsym: %d\n", topsym, bottomsym);
+	printf("topsym: %d * botsym: %d\n", topsym, bottomsym);
 			mul = (bottomsym * topsym) + (*result)->remainder;
 			if (mul >= base)
 				mulremainder(result, mul, base);
@@ -70,6 +71,7 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 		if (bottom)
 		   	mulmagpush(result, addlevel);
 	}
+	printf("MulComplete\n");
 	return (1);
 }
 

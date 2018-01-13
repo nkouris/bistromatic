@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 03:40:31 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 14:13:15 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int		sendoperands(t_list **head, char op, bool delhead)
 {
 	t_list	*result;
-	t_list	*operand1;
-	t_list	*operand2;
+	t_list	*op1;
+	t_list	*op2;
 	int		error;
 	int		max;
 
-	operand1 = 0;
-	operand2 = 0;
+	op1 = 0;
+	op2 = 0;
 	error = 1;
 	
 	check_op(&op, head);
@@ -53,16 +53,16 @@ int		sendoperands(t_list **head, char op, bool delhead)
 		|| !(listhookup(&result, 0, 1)))
 		return (0);
 	printf("send operands 2\n");
-	operandsplit(head, &operand1, &operand2);
+	operandsplit(head, &op1, &op2);
 	printf("send operands 3\n");
-	max = maxindex(&operand1, &operand2, op); 				//segfault when 2+2, 111+111, 23+23
+	max = maxindex(&op1, &op2, op); 				//segfault when 2+2, 111+111, 23+23
 	printf("send operands 4\n");
-//printf("max: %d\n", max);
-	op == '+' ? error = addtrack(&result, operand1, operand2, max) : error;
-	op == '-' ? error = subtrack(&result, operand1, operand2, max) : error;
-	op == '*' ? error = multrack(&result, operand1, operand2, max) : error;
-//	op = '/' ? error = rundiv(&result, &operand1, &operand2, max) : error;
-//	op = '%' ? error = rundiv(&result, &operand1, &operand2, max) : error;
+printf("max: %d\n", max);
+	op == '+' ? error = addtrack(&result, op1, op2, max) : error;
+	op == '-' ? error = subtrack(&result, op1, op2, max) : error;
+	op == '*' ? error = multrack(&result, op1, op2, max) : error;
+//	op = '/' ? error = rundiv(&result, &op1, &op2, max) : error;
+//	op = '%' ? error = rundiv(&result, &op1, &op2, max) : error;
 	// delhead to protect recursion of division head, which is a composite of
 	// the divisor and temporary dividend
 // wrap lstdel with return value
@@ -75,36 +75,38 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	return (error);
 }
 
-int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
+int		operandsplit(t_list **head, t_list **op1, t_list **op2)
 {
 	t_list	*temp;
 	int		i;
 
-	i = 0;
-//printf("Start split\n");
-	while (!(*operand2))
+printf("Start split\n");
+	while (!(*op2))
 	{
 		temp = (*head);
+	printf("incominisneg: %d\n", (*head)->isneg);
 		temp->prev = 0;
+		temp->isneg ? (i = 1) : (i = 0);
 		if (temp->value == '-')
 		{
-//			printf("is neg\n");
+	printf("is neg\n");
 			i = 1;
 			temp = temp->next;
+			temp->prev = 0;
 			ft_memdel((void **)&(*head));
 		}
 		while (!(temp->na))
 		{
 			if (i)
 				temp->isneg = 1;
-//printf("%sindex: \t\t\t\t%d\nbase: %d\nkey: %s\ntemp: %p\nprev: %p\nnext: %p\n%s", GREEN, temp->symbolindex, temp->base, temp->basekey, temp, temp->prev, temp->next, NORMAL);
+printf("%sindex: \t\t\t\t%d\nbase: %d\nkey: %s\ntemp: %p\nprev: %p\nnext: %p\n%s", GREEN, temp->symbolindex, temp->base, temp->basekey, temp, temp->prev, temp->next, NORMAL);
 			temp = temp->next;
 		}
 		if (temp->next)
 			(*head) = temp->next;
-//	printf("NEW NUM\n");
-		(!(*operand1)) ? ((*operand1) = sym_lst(temp))
-		: ((*operand2) = sym_lst(temp));
+printf("NEW NUM\n");
+		(!(*op1)) ? ((*op1) = sym_lst(temp))
+		: ((*op2) = sym_lst(temp));
 	}
 	return (1);
 }
@@ -118,34 +120,31 @@ t_list	*sym_lst(t_list *temp)
 	return (op_lo);
 }
 
-int		maxindex(t_list **operand1, t_list **operand2, char op)
+int		maxindex(t_list **op1, t_list **op2, char op)
 {
-	t_list *temp1;
-	t_list *temp2;
-
-	temp1 = (*operand1);
-	temp2 = (*operand2);
+	(*op1) = (*op1);
+	(*op2) = (*op2);
 	if (op == '/' || op == '%')
-		return (4);
-	while (temp1->prev && temp2->prev)
+		return (3);
+	while ((*op1)->prev && (*op2)->prev)
 	{
-		temp1 = temp1->prev;
-		temp2 = temp2->prev;
+		(*op1) = (*op1)->prev;
+		(*op2) = (*op2)->prev;
 	}
-	if (temp1->prev && !temp2->prev)
+	if ((*op1)->prev && !(*op2)->prev)
 		return (1);
-	if (temp2->prev && !temp1->prev)
+	if ((*op2)->prev && !(*op1)->prev)
 		return (2);
-	while (!temp1->na)
+	while ((*op1))
 	{
-		if (temp1->symbolindex > temp2->symbolindex)
+		if ((*op1)->symbolindex > (*op2)->symbolindex)
 			return (1);
-		if (temp2->symbolindex > temp1->symbolindex)
+		if ((*op2)->symbolindex > (*op1)->symbolindex)
 			return (2);
-		temp1 = temp1->next;
-		temp2 = temp2->next;
+		(*op1) = (*op1)->next;
+		(*op2) = (*op2)->next;
 	}
-	return (3);
+	return (1);
 }
 
 int		listhookup(t_list **node, bool prev, bool na)

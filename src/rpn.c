@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 21:00:34 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 00:57:38 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 13:30:14 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ int		rpn(t_list **start, char *str, char *basekey)
 			free_stack_node(&stack);
 			
 		}
-		else return (1);
+		else return (0);
 		i++;
 //	printf("base: %d\n", (*start)->base);
 	}
 	if (stack != NULL)
 		pop_stack(start, &stack);
 	printf("HERE2\n");
-	return (0);
+	return (1);
 }

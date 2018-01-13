@@ -6,38 +6,41 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 03:40:28 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 14:13:16 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsm.h"
 
-int		addtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
+int		addtrack(t_list **result, t_list *op1, t_list *op2, int max)
 {
 	printf("start addition\n");
 	if (max == 1)
 	{
-		if (!operand1->isneg && operand2->isneg)
-			return (runsub(result, operand1, operand2));
-		if (operand1->isneg || (operand1->isneg && operand2->isneg))
+		printf("op1neg: %d\n", op1->isneg);
+		if ((!op1->isneg && op2->isneg)
+			|| (op1->isneg && !op2->isneg))
+			return (runsub(result, op1, op2));
+		if (op1->isneg || (op1->isneg && op2->isneg))
 			(*result)->isneg = 1;
-		return (runadd(result, operand1, operand2));
+		return (runadd(result, op1, op2));
 	}
 	else if (max == 2)
 	{
-		if (!operand2->isneg && operand1->isneg)
-			return (runsub(result, operand2, operand1));
-		if (operand2->isneg || (operand2->isneg && operand1->isneg))
+		if ((!op2->isneg && op1->isneg)
+			|| (op2->isneg && !op1->isneg))
+			return (runsub(result, op2, op1));
+		if (op2->isneg || (op2->isneg && op1->isneg))
 			(*result)->isneg = 1;
-		return (runadd(result, operand2, operand1));
+		return (runadd(result, op2, op1));
 	}
 	return (0);
 }
 
-int		runadd(t_list **result, t_list *top, t_list *bottom)
+int		runadd(t_list **result, t_list *top, t_list *bot)
 {
 	int	add;
-	int	bottomsym;
+	int	botsym;
 	int	topsym;
 	int	base;
 
@@ -50,16 +53,16 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 		if (!listhookup(result, 1, 0))
 			return (0);
 		((*result)->isneg) ? (((*result)->prev)->isneg) = 1 : ((*result)->prev)->isneg;
-		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
+		!bot ? (botsym = 0) : (botsym = bot->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);
-	printf("add %d + (%d + %d)", bottomsym, topsym, (*result)->remainder);
-		add = bottomsym + (topsym + (*result)->remainder);
+	printf("add %d + (%d + %d)", botsym, topsym, (*result)->remainder);
+		add = botsym + (topsym + (*result)->remainder);
 		if (add >= base)
 			addremainder(result, add, base);
 		else
 			(*result)->symbolindex = add;
 		printf("result of add: %d\n", (*result)->symbolindex);
-		!bottom ? bottom : (bottom = bottom->prev);
+		!bot ? bot : (bot = bot->prev);
 		!top ? top : (top = top->prev);
 		(*result) = (*result)->prev;
 	}

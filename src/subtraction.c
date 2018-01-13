@@ -6,44 +6,44 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:07:37 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 01:53:25 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 14:13:17 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsm.h"
 
-int		subtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
+int		subtrack(t_list **result, t_list *op1, t_list *op2, int max)
 {
 	if (max == 1)
 	{
-		if ((operand1->isneg && !operand2->isneg)
-			|| (operand1->isneg && operand2->isneg))
+		if ((op1->isneg && !op2->isneg)
+			|| (op1->isneg && op2->isneg))
 			(*result)->isneg = 1;
-		if ((!operand1->isneg && !operand2->isneg)
-			|| (operand1->isneg && operand2->isneg))
-			return (runsub(result, operand1, operand2));
+		if ((!op1->isneg && !op2->isneg)
+			|| (op1->isneg && op2->isneg))
+			return (runsub(result, op1, op2));
 		else
-			return (runadd(result, operand1, operand2));
+			return (runadd(result, op1, op2));
 	}
 	else if (max == 2)
 	{
-		if ((!operand2->isneg && !operand1->isneg)
-			|| (!operand2->isneg && operand1->isneg)
-			|| (operand2->isneg && !operand1->isneg))
+		if ((!op2->isneg && !op1->isneg)
+			|| (!op2->isneg && op1->isneg)
+			|| (op2->isneg && !op1->isneg))
 			(*result)->isneg = 1;
-		if ((!operand2->isneg && !operand1->isneg)
-			|| (operand2->isneg && !operand1->isneg))
-			return (runsub(result, operand2, operand1));
+		if ((!op2->isneg && !op1->isneg)
+			|| (op2->isneg && !op1->isneg))
+			return (runsub(result, op2, op1));
 		else
-			return (runadd(result, operand2, operand1));
+			return (runadd(result, op2, op1));
 	}
 	return (0);
 }
 
-int		runsub(t_list **result, t_list *top, t_list *bottom)
+int		runsub(t_list **result, t_list *top, t_list *bot)
 {
 	int	sub;
-	int	bottomsym;
+	int	botsym;
 	int	topsym;
 	int	base;
 
@@ -55,12 +55,12 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 		if (!listhookup(result, 1, 0))
 			return (0);
 		((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
-		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
-		printf("subtrack 1\n");
+	printf("ISNEG: %d\n", (*result)->isneg);
+		!bot ? (botsym = 0) : (botsym = bot->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);			//segfault here when -2-4
-		printf("subtrack 2\n");
-		printf("sub %d - (%d + %d)\n", topsym, bottomsym, (*result)->remainder);
-		sub = topsym - (bottomsym + (*result)->remainder);
+	printf("sub %d - (%d + %d)\n", topsym, botsym, (*result)->remainder);
+		sub = topsym - (botsym + (*result)->remainder);
+		printf("sub: %d\n",sub);
 		if (sub < 0)
 		{
 			(*result)->symbolindex = base + sub;
@@ -68,7 +68,7 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 		}
 		else
 			(*result)->symbolindex = sub;
-		!bottom ? bottom : (bottom = bottom->prev);
+		!bot ? bot : (bot = bot->prev);
 		!top ? top : (top = top->prev);
 		(*result) = (*result)->prev;
 		
