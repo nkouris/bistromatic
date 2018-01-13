@@ -25,7 +25,7 @@ void	free_stack_node(t_operator **stack)
 
 void	pop_stack(t_list **start, t_operator **stack)
 {
-printf("%sPopstack send\n%s", RED, NORMAL);
+	printf("%sPopstack send, current operator: '%c'\n%s", RED, (*stack)->op, NORMAL);
 	while ((*start)->prev)
 		*start = (*start)->prev;
 	sendoperands(start, (*stack)->op, true);

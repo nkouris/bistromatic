@@ -49,3 +49,35 @@ int		ft_find(char c, char *basekey)
 			return (1);
 	return (0);
 }
+
+
+
+/*
+**	Function below:
+**	-> 0 means positive;
+**	-> 1 means negative;
+*/
+
+void	check_op(char *curr, t_list **head)
+{
+	*head = (*head)->next;
+	while ((*head)->next != NULL)
+	{
+		if ((*head)->value == '-' && (*curr == '+' || *curr == '-'))
+		{
+			free_one_node((*head)->prev, *head, (*head)->next);
+			*curr = (*curr == '-') ? '+' : '-';
+		}
+		*head = (*head)->next;
+	}
+	while ((*head)->prev != NULL)
+		*head = (*head)->prev;
+	if (*curr == '+' && (*head)->value == '-')
+	{
+		free_one_node(NULL, *head, (*head)->next);
+		*curr = '-';
+	}
+	head = &(*head);
+}
+
+

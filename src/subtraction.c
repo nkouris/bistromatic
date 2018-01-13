@@ -56,7 +56,10 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 			return (0);
 		((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
 		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
-		!top ? (topsym = 0) : (topsym = top->symbolindex);
+		printf("subtrack 1\n");
+		!top ? (topsym = 0) : (topsym = top->symbolindex);			//segfault here when -2-4
+		printf("subtrack 2\n");
+		printf("sub %d - (%d + %d)\n", topsym, bottomsym, (*result)->remainder);
 		sub = topsym - (bottomsym + (*result)->remainder);
 		if (sub < 0)
 		{
@@ -68,6 +71,8 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 		!bottom ? bottom : (bottom = bottom->prev);
 		!top ? top : (top = top->prev);
 		(*result) = (*result)->prev;
+		
 	}
+	printf("END OF SUB\n");
 	return (1);
 }

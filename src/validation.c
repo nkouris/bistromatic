@@ -106,10 +106,11 @@ int		valid_input(char **head, char *base)
 {
 	static int	brij[4];
 	char		*new;
-printf("Validating...\n");
+//printf("Validating...\n");
 	new = (char *)ft_memalloc(ft_strlen(*head) + 1);
-	while ((*head)[brij[2]] != '\0')
+	while ((*head)[brij[2]] != '\0' && (*head)[brij[2]] != '\n')
 	{
+//		printf("IM HERE, str[%d] = %c\n", brij[2], (*head)[brij[2]]);
 		while ((*head)[brij[2]] == base[0] &&
 			ft_find((*head)[brij[2] + 1], base) == 1)
 			brij[2]++;
@@ -128,7 +129,7 @@ printf("Validating...\n");
 	}
 	new[brij[3]] = '\0';
 	*head = new;
-	printf("HERE\n");
+	printf("HERE new = %s\n", new);
 	return (brij[0] == 0 ? 0 : -1);
 }
 

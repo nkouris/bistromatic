@@ -26,9 +26,10 @@ int		main(int argc, char **argv)
 		|| (validation(&(input_base[0]), input_base[1]) != 0)
 		|| !(rpn(&new, input_base[0], input_base[1])))
 	{
-		printf("HERE\n");
+		printf("HERE1\n");
 		return (0);
 	}
+	printf("%p\n", new);
 	printresult(new);
 }
 

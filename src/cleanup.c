@@ -18,7 +18,7 @@ int		lstdel(t_list **start)
 
 //	if (*((*start)->basekey))
 //		free((void *)((*start)->basekey));
-printf("DELETING\n");
+//printf("DELETING\n");
 	if ((*start)->next)
 	{
 		while ((*start))
@@ -38,4 +38,16 @@ printf("DELETING\n");
 		}
 	}
 	return (1);
+}
+
+void	free_one_node(t_list *prev, t_list *curr, t_list *next)
+{
+	if (prev != NULL)
+		prev->next = next;
+	if (next != NULL)
+		next->prev = prev;
+	printf("FREEING\n");
+	free(curr->basekey);
+	free(curr);
+	curr = next;
 }

@@ -43,6 +43,7 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 
 	add = 0;
 	base = (*result)->base;
+	
 	printf("runnadd\n");
 	while ((*result)->remainder || top)
 	{
@@ -62,7 +63,7 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 		!top ? top : (top = top->prev);
 		(*result) = (*result)->prev;
 	}
-	printf("end of add\n");
+	printf("END OF ADD\n");
 	return (1);
 }
 

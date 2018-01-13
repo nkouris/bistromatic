@@ -23,14 +23,41 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	operand1 = 0;
 	operand2 = 0;
 	error = 1;
+	
+	check_op(&op, head);
+	printf("AFTER CHECKING OP: %c\n", op);
+	
+	printf("%sSENDLIST: ", CYAN);
+	while ((*head)->next != NULL)
+	{
+		if ((*head)->na != 1)
+			printf("%c -> ", (*head)->value);
+		else
+			printf("NA -> ");
+		*head = (*head)->next;
+	}
+	if ((*head)->na != 1)
+		printf("%c -> ", (*head)->value);
+	else
+		printf("NA -> ");
+	printf("null\n");
+	while ((*head)->prev != NULL)
+		*head = (*head)->prev;
+	printf("FIRST: %c\n%s", (*head)->value, NORMAL);
+	
+	
+	printf("send operands 1\n");
 	if (!(result = (t_list *)ft_memalloc(sizeof(t_list)))
 		|| !(result->basekey = (*head)->basekey)
 		|| !(result->base = (*head)->base)
 		|| !(listhookup(&result, 0, 1)))
 		return (0);
+	printf("send operands 2\n");
 	operandsplit(head, &operand1, &operand2);
-	max = maxindex(&operand1, &operand2, op);
-printf("max: %d\n", max);
+	printf("send operands 3\n");
+	max = maxindex(&operand1, &operand2, op); 				//segfault when 2+2, 111+111, 23+23
+	printf("send operands 4\n");
+//printf("max: %d\n", max);
 	op == '+' ? error = addtrack(&result, operand1, operand2, max) : error;
 	op == '-' ? error = subtrack(&result, operand1, operand2, max) : error;
 	op == '*' ? error = multrack(&result, operand1, operand2, max) : error;
@@ -40,11 +67,11 @@ printf("max: %d\n", max);
 	// the divisor and temporary dividend
 // wrap lstdel with return value
 //	printf("send inside4\n");
-printf("delhead: %d\n", delhead);
+//printf("delhead: %d\n", delhead);
 	delhead ? error = lstdel(head) : error;
 	(*head) = result;
 	append(head);
-printf("%sNA: %p\nna: %d\nprev: %p\nnext: %p\n%s", CYAN, (*head), (*head)->na, (*head)->prev, (*head)->next, NORMAL);
+//printf("%sNA: %p\nna: %d\nprev: %p\nnext: %p\n%s", CYAN, (*head), (*head)->na, (*head)->prev, (*head)->next, NORMAL);
 	return (error);
 }
 
@@ -54,14 +81,14 @@ int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 	int		i;
 
 	i = 0;
-printf("Start split\n");
+//printf("Start split\n");
 	while (!(*operand2))
 	{
 		temp = (*head);
 		temp->prev = 0;
 		if (temp->value == '-')
 		{
-			printf("is neg\n");
+//			printf("is neg\n");
 			i = 1;
 			temp = temp->next;
 			ft_memdel((void **)&(*head));
@@ -70,12 +97,12 @@ printf("Start split\n");
 		{
 			if (i)
 				temp->isneg = 1;
-printf("%sindex: \t\t\t\t%d\nbase: %d\nkey: %s\ntemp: %p\nprev: %p\nnext: %p\n%s", GREEN, temp->symbolindex, temp->base, temp->basekey, temp, temp->prev, temp->next, NORMAL);
+//printf("%sindex: \t\t\t\t%d\nbase: %d\nkey: %s\ntemp: %p\nprev: %p\nnext: %p\n%s", GREEN, temp->symbolindex, temp->base, temp->basekey, temp, temp->prev, temp->next, NORMAL);
 			temp = temp->next;
 		}
 		if (temp->next)
 			(*head) = temp->next;
-	printf("NEW NUM\n");
+//	printf("NEW NUM\n");
 		(!(*operand1)) ? ((*operand1) = sym_lst(temp))
 		: ((*operand2) = sym_lst(temp));
 	}

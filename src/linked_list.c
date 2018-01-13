@@ -25,7 +25,7 @@ printf("%sAdd na\n", YELLOW);
 	na->numlen = 0;
 	na->base = previous->base;
 	*start = na;
-printf("NA: %p\nPrev: %p\n%s", na, na->prev, NORMAL);
+	printf("NA: %p\nPrev: %p\nNext: %p\n%s", na, na->prev, na->next, NORMAL);
 	return (na);
 }
 
@@ -34,7 +34,7 @@ void	add_list_node(char *str, int i, t_list **start, char *basekey)
 {
 	t_list	*ptr;
 	t_list	*new;
-	printf("ADD NODE!\n");
+	printf("ADD NODE, str[i] = %c!\n", str[i]);
 	ptr = *start;
 	new = (t_list *)ft_memalloc(sizeof(t_list));
 	new->na = false;
@@ -57,8 +57,9 @@ void	add_list_node(char *str, int i, t_list **start, char *basekey)
 		new->base = ft_strlen(basekey);
 	}
 	indexsymbol(new);
-printf("%sONE NODE:\nindex: [%d]\nnew: %p\nnew->prev: %p\nnew->next: %p\n%s", GREEN, \
-		   new->symbolindex, new, new->prev, new->next, NORMAL);
+
 	new->next = ((ft_find(str[i + 1], basekey) != 1) || str[i + 1] == '\0') ?
 	add_na(new, start) : NULL;
+	printf("%sONE NODE:\nindex: [%d]\nnew: %p\nnew->prev: %p\nnew->next: %p\nnew->value: %c\n%s", GREEN, new->symbolindex, new, new->prev, new->next, new->value, NORMAL);
 }
+

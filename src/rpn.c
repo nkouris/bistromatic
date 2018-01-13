@@ -23,7 +23,7 @@ void	rpn2(char *str, int *i, t_list **start, t_operator **stack)
 	{
 		if (precedence(str[*i], (*stack)->op) > 0)
 		{
-			printf("Precedence\n");
+//			printf("Precedence\n");
 			push_stack(str[*i], stack);
 		}
 		else
@@ -48,12 +48,13 @@ int		rpn(t_list **start, char *str, char *basekey)
 	
 	i = 0;
 	stack = NULL;
-	
+//	printf("FIND...\nstrPOS: %d numSYM: [%c] basekey: %s\n", i, str[i], basekey);
 	while (str[i])
 	{
-		printf("FIND...\nstrPOS: %d numSYM: [%c] basekey: %s\n", i, str[i], basekey);
-		if (ft_find(str[i], basekey) == 1)// ||
-//			(str[i + 1] && ft_find(str[i + 1], basekey) == 1))
+		printf("RPN: str[%d]: [%c], basekey: %s\n", i, str[i], basekey);
+		if ((ft_find(str[i], basekey) == 1) ||
+			(i > 0 && str[i] == '-' && ft_find(str[i + 1], basekey) == 1 && str[i - 1] == 40)
+			|| (i == 0 && str[i] == '-' && ft_find(str[i + 1], basekey) == 1))
 			add_list_node(str, i, start, basekey);
 		else if (IS_OPER(str[i]))
 			rpn2(str, &i, start, &stack);
@@ -66,7 +67,7 @@ int		rpn(t_list **start, char *str, char *basekey)
 		}
 		else return (1);
 		i++;
-	printf("base: %d\n", (*start)->base);
+//	printf("base: %d\n", (*start)->base);
 	}
 	if (stack != NULL)
 		pop_stack(start, &stack);

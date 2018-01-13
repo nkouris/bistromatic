@@ -14,10 +14,10 @@
 
 int		readandstore(char **argv, char **input_base, int *base)
 {
-	int		ninput;
-	int		nstrbasekey;
-	int		nstrinput;
-	char	*input_size;
+	int		ninput = 0;
+	int		nstrbasekey = 0;
+	int		nstrinput = 0;
+	char	*input_size ;
 	char	*input;
 
 	if (!(nstrbasekey = (int)ft_strlen((const char *)argv[1]))
@@ -29,6 +29,7 @@ int		readandstore(char **argv, char **input_base, int *base)
 		|| !(input_size = (char *)ft_strnew((size_t)nstrbasekey))
 		|| !(ft_strcpy(input_size, (const char *)(argv[1]))))
 		return (0);
+	
 	*base = nstrbasekey;
 	input_base[0] = input;
 	input_base[1] = input_size;
