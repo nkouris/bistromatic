@@ -1,5 +1,4 @@
 PROGRAM = calc 
-NAME = libftls.a 
 FLAGS = -Wall -Werror -Wextra -g
 CC = gcc
 OBJSRC = $(patsubst %, %.o, $(SRC))
@@ -34,13 +33,11 @@ INC += src/libft/ft_putstr
 INC += src/libft/ft_putchar
 INC += src/libft/ft_atoi
 
-all: $(NAME)
+all: $(PROGRAM)
 
-$(NAME): $(OBJINC) $(OBJSRC)
-	@ echo "Building static library..."
-	@ ar -rcs $(NAME) $(OBJSRC) $(OBJINC)
+$(PROGRAM): $(OBJINC) $(OBJSRC)
 	@ echo "Compiling calc program"
-	@ $(CC) $(FLAGS) -L . -l ftls -o $(PROGRAM)
+	@ $(CC) $(FLAGS) $(OBJINC) $(OBJSRC) -o $(PROGRAM)
 
 %.o: %.c
 	@ echo "Compiling $<..."
@@ -52,9 +49,8 @@ clean:
 	@ echo "Cleaning folders of object files..."
 
 fclean: clean
-	@ /bin/rm -f $(NAME)
 	@ /bin/rm -f $(PROGRAM)
-	@ echo "Removing library file and binary..."
+	@ echo "Removing files and binary..."
 
 re: fclean all
 	@ echo "Program Remade"

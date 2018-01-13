@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/12 14:41:24 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/12 21:02:21 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 	base = bottom->base;
 	printf("runnadd\n");
 	printf("HEAD start of add: %p SYMindex: %d\n", (*result), (*result)->symbolindex);
-	
-	
-	
 	while ((*result)->remainder || top)
 	{
 		if (!listhookup(result, 1, 0))

@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:15:08 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/10 22:05:49 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/12 20:59:35 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int		main(int argc, char **argv)
 	int		base;
 
 	if (argc != 3)
-	{
-		ft_putstr("usage: calc [base] [input_size]");
 		return (0);
-	}
 	new = 0;
 	base = 0;
 	if (!(readandstore(argv, input_base, &base))
