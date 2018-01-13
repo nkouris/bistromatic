@@ -24,5 +24,4 @@ void	printresult(t_list *list)
 		list = list->next;
 	}
 	list = start;
-	return (0);
 }

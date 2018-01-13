@@ -14,7 +14,7 @@
 
 int		addtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 {
-	if (max = 1)
+	if (max == 1)
 	{
 		if (!operand1->isneg && operand2->isneg)
 			return (runsub(result, operand1, operand2));
@@ -22,7 +22,7 @@ int		addtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 			(*result)->isneg = 1;
 		return (runadd(result, operand1, operand2));
 	}
-	else if (max = 2)
+	else if (max == 2)
 	{
 		if (!operand2->isneg && operand1->isneg)
 			return (runsub(result, operand2, operand1));
@@ -46,7 +46,7 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 	{
 		if (!listhookup(result, 1, 0))
 			return (0);
-		((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
+		((*result)->isneg) ? (((*result)->prev)->isneg) = 1 : ((*result)->prev)->isneg;
 		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);
 		add = bottomsym + (topsym + (*result)->remainder);

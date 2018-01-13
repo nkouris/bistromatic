@@ -61,20 +61,37 @@ int		readandstore(char **argv, char **input_base, int *base);
 int		indexsymbol(int b, t_list *node);
 
 /* addition.c */
-int		addition(t_list **head);
-int		runadd(t_list **result, t_list *top, t_list *bottom);
 void	addremainder(t_list **result, int add, int base);
+int		runadd(t_list **result, t_list *top, t_list *bottom);
+int		addtrack(t_list **result, t_list *operand1, t_list *operand2, int max);
+
+/* subtraction.c */
+int		runsub(t_list **result, t_list *top, t_list *bottom);
+int		subtrack(t_list **result, t_list *operand1, t_list *operand2, int max);
+
+/* multiplication.c */
+void	mulremainder(t_list **result, int mul, int base);
+int		mulmagpush(t_list **result, int addlevel);
+int		runmul(t_list **result, t_list *top, t_list *bottom);
+int		multrack(t_list **result, t_list *operand1, t_list *operand2, int max);
+
+/* division.c */
+void	findbottom(t_list **remainder, t_list **operand2);
+void	compositediv(t_list *operand2, t_list *retemp);
+int		insertdiv(t_list **retemp, t_list **operand1);
+void	snipdiv(t_list **remainder, t_list **operand1, t_list *operand2);
+int		rundiv(t_list **result, t_list **operand1, t_list **operand2, int max);
 
 /* operations.c */
 int		operandsplit(t_list **head, t_list **operand1, t_list **operand2);
+int		maxindex(t_list **operand1, t_list **operand2, char op);
+int		sendoperands(t_list **head, char op, bool delhead);
+int		listhookup(t_list **node, bool prev, bool na);
 t_list	*sym_lst(t_list *temp);
-int		operandlen(t_list **operand1, t_list **operand2);
-int		remaindercalc(int result, int base);
 
 /* tools.c */
 int		precedence(char op1, char op2);
 int		ft_find(char c, char *base);
-void	solve_equation(char	op, t_list **start);
 
 /* rpn.c */
 int		rpn(t_list **start, char *str, char *basekey);
@@ -93,5 +110,8 @@ void	printresult(t_list *list);
 
 /* validation.c */
 int		validation(char **head, char *base);
+
+/* cleanup.c */
+int		lstdel(t_list **start);
 
 #endif

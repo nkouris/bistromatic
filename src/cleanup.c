@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		lstdel(t_list *start)
+#include "bsm.h"
+
+int		lstdel(t_list **start)
 {
 	t_list *temp;
 
@@ -34,4 +36,5 @@ int		lstdel(t_list *start)
 			(*start) = temp;
 		}
 	}
+	return (1);
 }

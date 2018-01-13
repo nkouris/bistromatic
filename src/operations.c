@@ -24,16 +24,16 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	operand2 = 0;
 	error = 1;
 	if (!(result = (t_list *)ft_memalloc(sizeof(t_list)))
-		|| !(nexthookup(result, 0, 1)))
+		|| !(listhookup(&result, 0, 1)))
 		return (0);
 	operandsplit(head, &operand1, &operand2);
 	max = maxindex(&operand1, &operand2, op);
-	op = '+' ? error = addtrack(&result, &operand1, &operand2, max) : error;
-	op = '-' ? error = subtrack(&result, &operand1, &operand2, max) : error;
-	op = '*' ? error = multrack(&result, &operand1, &operand2, max) : error;
-	op = '/' ? error = rundiv(&result, &operand1, &operand2, max) : error;
-	op = '%' ? error = rundiv(&result, &operand1, &operand2, max) : error;
-	// delhead to protect recursion of division head, which is a composite of 
+	op = '+' ? error = addtrack(&result, operand1, operand2, max) : error;
+	op = '-' ? error = subtrack(&result, operand1, operand2, max) : error;
+	op = '*' ? error = multrack(&result, operand1, operand2, max) : error;
+//	op = '/' ? error = rundiv(&result, &operand1, &operand2, max) : error;
+//	op = '%' ? error = rundiv(&result, &operand1, &operand2, max) : error;
+	// delhead to protect recursion of division head, which is a composite of
 	// the divisor and temporary dividend
 // wrap lstdel with return value 
 	delhead ? error = lstdel(*head) : error;
@@ -93,7 +93,7 @@ int		maxindex(t_list **operand1, t_list **operand2, char op)
 	temp1 = (*operand1);
 	temp2 = (*operand2);
 	if (op == '/' || op == '%')
-		return (4)
+		return (4);
 	while (temp1->prev && temp2->prev)
 	{
 		temp1 = temp1->prev;

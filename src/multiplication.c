@@ -16,9 +16,9 @@ int		multrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 {
 	if (operand1->isneg || operand2->isneg)
 		(*result)->isneg = 1;
-	if (max = 1)
+	if (max == 1)
 		return (runmul(result, operand1, operand2));
-	else if (max = 2)
+	else if (max == 2)
 		return (runmul(result, operand2, operand1));
 	return (0);
 }
@@ -41,7 +41,7 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 		{
 			if (!listhookup(result, 1, 0))
 				return (0);
-			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
+			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
 			!top ? (topsym = 0) : (topsym = top->symbolindex);
 			mul = (bottomsym * topsym) + (*result)->remainder;
 			if (mul > base)
@@ -55,7 +55,7 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 		bottom = bottom->prev;
 		if (addlevel > 1)
 		{
-			addition(result);
+			sendoperands(result, '+', 1);
 			mulmagpush(result, 0);
 		}
 		if (bottom)
@@ -73,14 +73,14 @@ int		mulmagpush(t_list **result, int addlevel)
 		{
 			if (!listhookup(result, 1, 0))
 				return (0);
-			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
+			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
 			(*result) = (*result)->prev;
 			addlevel > 0 ? (*result)->symbolindex = 0 : (*result)->symbolindex;
 		}
-		return (1);
 	}
-	while (result->next)
-		(*result) = (*result->next);
+	while ((*result)->next)
+		(*result) = (*result)->next;
+	return (1);
 }
 
 void	mulremainder(t_list **result, int mul, int base)

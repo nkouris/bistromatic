@@ -30,7 +30,7 @@ void	free_stack_node(t_operator **stack)
 void	pop_stack(t_list **start, t_operator **stack)
 {
 //	printf("I'M IN POP_STACK! start->op: %c\n", (*stack)->op);
-	sendoperands(start, (*stack)->op);
+	sendoperands(start, (*stack)->op, true);
 //	printf("I'M IN POP_STACK!2\n");
 	free_stack_node(stack);
 //	printf("I'M IN POP_STACK!3\n");

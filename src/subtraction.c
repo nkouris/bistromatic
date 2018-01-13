@@ -14,18 +14,18 @@
 
 int		subtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 {
-	if (max = 1)
+	if (max == 1)
 	{
 		if ((operand1->isneg && !operand2->isneg)
 			|| (operand1->isneg && operand2->isneg))
 			(*result)->isneg = 1;
-		if ((!operand1->isneg && !operand2->inseg)
+		if ((!operand1->isneg && !operand2->isneg)
 			|| (operand1->isneg && operand2->isneg))
 			return (runsub(result, operand1, operand2));
 		else
 			return (runadd(result, operand1, operand2));
 	}
-	else if (max = 2)
+	else if (max == 2)
 	{
 		if ((!operand2->isneg && !operand1->isneg)
 			|| (!operand2->isneg && operand1->isneg)
@@ -53,7 +53,7 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 	{
 		if (!listhookup(result, 1, 0))
 			return (0);
-		((*result)->isneg) ? ((*result)->prev)->isneg = 1 : (*result);
+		((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
 		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);
 		sub = (topsym + (*result)->remainder) - bottomsym;

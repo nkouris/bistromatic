@@ -66,8 +66,8 @@ int		rpn(t_list **start, char *str, char *basekey)
 	while (str[i])
 	{
 //		printf("HERE i = %d str[i] = %c\n", i, str[i]);
-		if (ft_strxcpy(str[i], base) == 1 ||
-			(str[i + 1] && ft_strxcpy(str[i + 1], base) == 1))
+		if (ft_find(str[i], basekey) == 1 ||
+			(str[i + 1] && ft_find(str[i + 1], basekey) == 1))
 			add_list_node(str, i, start, basekey);
 		else if (IS_OPER(str[i]))
 			rpn2(str, i, start, &stack);
