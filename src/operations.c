@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/12 15:29:56 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 01:53:21 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,15 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	operand2 = 0;
 	error = 1;
 	if (!(result = (t_list *)ft_memalloc(sizeof(t_list)))
+		|| !(result->basekey = (*head)->basekey)
+		|| !(result->base = (*head)->base)
 		|| !(listhookup(&result, 0, 1)))
 		return (0);
-//	printf("send inside1\n");
 	operandsplit(head, &operand1, &operand2);
-//	printf("send inside2\n");
 	max = maxindex(&operand1, &operand2, op);
-//	printf("send inside3\n");
+printf("max: %d\n", max);
 	op =='+' ? error = addtrack(&result, operand1, operand2, max) : error;
-//	printf("send inside3.0\n");
 	op == '-' ? error = subtrack(&result, operand1, operand2, max) : error;
-//	printf("send inside3.1\n");
 	op == '*' ? error = multrack(&result, operand1, operand2, max) : error;
 //	op = '/' ? error = rundiv(&result, &operand1, &operand2, max) : error;
 //	op = '%' ? error = rundiv(&result, &operand1, &operand2, max) : error;
@@ -43,33 +41,9 @@ int		sendoperands(t_list **head, char op, bool delhead)
 // wrap lstdel with return value
 //	printf("send inside4\n");
 	delhead ? error = lstdel(head) : error;
-//	printf("send inside5\n");
-//	lstdel(&operand1);
-//	printf("send inside6\n");
-//	lstdel(&operand2);
-//	printf("send inside7\n");
 	(*head) = result;
 	append(head);
-//	printf("head address: %p\n", *head);
-//	if ((*head) != NULL)
-//	{
-//		printf("[%d] ", (*head)->next->symbolindex);
-//		if ((*head)->symbolindex != '\0')
-//		{
-//			printf("%sSTART:\n", CYAN);
-//			printf("%c ", (*head)->next->symbolindex);
-//		}
-//		while ((*head)->next != NULL)
-//		{
-//			*head = (*head)->next;
-//			printf("%d", (*head)->symbolindex);
-//			if ((*head)->next == NULL)
-//				printf("\n%s", NORMAL);
-//		}
-//		while ((*head)->prev != NULL)
-//			*head = (*head)->prev;
-//	}
-// fill node->value with index value corresponding symbol
+printf("%sNA: %p\nna: %d\nprev: %p\nnext: %p\n%s", BLUE, (*head), (*head)->na, (*head)->prev, (*head)->next, NORMAL);
 	return (error);
 }
 
@@ -79,55 +53,40 @@ int		operandsplit(t_list **head, t_list **operand1, t_list **operand2)
 	int		i;
 
 	i = 0;
+printf("Start split\n");
 	while (!(*operand2))
 	{
 		temp = (*head);
-//		printf("HEAD %p previous %p next %p %d\n", (*head), (*head)->prev, (*head)->next, (*head)->symbolindex);
-//		printf("negative check\n");
 		temp->prev = 0;
-//		printf("negative check\n");
 		if (temp->value == '-')
 		{
+			printf("is neg\n");
 			i = 1;
 			temp = temp->next;
 			ft_memdel((void **)&(*head));
 		}
-//		printf("funrther\n");
 		while (!(temp->na))
 		{
 			if (i)
 				temp->isneg = 1;
-//			printf("TEMP previous %p, next %p, %c\n", temp->prev, temp->next, temp->value);
+printf("%sindex: %d\nbase: %d\nkey: %s\ntemp: %p\nprev: %p\nnext: %p\n%s", GREEN, temp->symbolindex, temp->base, temp->basekey, temp, temp->prev, temp->next, NORMAL);
 			temp = temp->next;
 		}
-//		printf("funrther1.1\n");
 		if (temp->next)
 			(*head) = temp->next;
-//		printf("funrther2\n");
-//		printf("previous %p net %p", temp->prev, temp->next);
+	printf("NEW NUM\n");
 		(!(*operand1)) ? ((*operand1) = sym_lst(temp))
 		: ((*operand2) = sym_lst(temp));
-//		printf("%s%c, %p\n", YELLOW, (*operand1)->value, (*operand1)->next);
-//		if (*operand2)
-//			printf("%c, %p\n%s", (*operand2)->value, (*operand2)->next, NORMAL);
-//		printf("%p\n", (*head));
-//		printf("funrther2.0\n");
-		
 	}
-//	printf("funrther3\n");
 	return (1);
 }
 
 t_list	*sym_lst(t_list *temp)
 {
 	t_list *op_lo;
-//	printf("symlist1\n");
 	op_lo = temp->prev;
-//	printf("symlist2\n");
 	free(temp);
-//	printf("symlist3\n");
 	op_lo->next = 0;
-//	printf("symlist4\n");
 	return (op_lo);
 }
 
@@ -170,12 +129,16 @@ int		listhookup(t_list **node, bool prev, bool na)
 		if (na)
 			((*node)->next)->na = 1;
 		((*node)->next)->prev = (*node);
+		((*node)->next)->basekey = (*node)->basekey;
+		((*node)->next)->base = (*node)->base;
 	}
 	else
 	{
 		if (!((*node)->prev = ft_memalloc(sizeof(t_list))))
 			return (0);
 		((*node)->prev)->next = (*node);
+		((*node)->prev)->basekey = (*node)->basekey;
+		((*node)->prev)->base = (*node)->base;
 	}
 	return (1);
 }
@@ -185,14 +148,19 @@ void	append(t_list **head)
 	t_list *temp;
 	
 	temp = (*head);
+	temp->prev = 0;
 	if ((*head)->isneg)
 		(*head)->value = '-';
 	else
 	{
 		(*head) = (*head)->next;
 		free(temp);
+		(*head)->prev = 0;
 	}
 	while ((*head)->next)
+	{
+		indexsymbol(*head);
 		(*head) = (*head)->next;
+	}
 }
 

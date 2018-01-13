@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:32:02 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/10 21:45:17 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 00:36:40 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,15 @@ int		indexsymbol(t_list *node)
 {
 	int		i;
 	char	*basekey;
-//	printf("indexsym1\n");
 	i = 0;
 	basekey = node->basekey;
-//	printf("indexsym1.1 value: %c %s\n", node->value, node->basekey);
-//	printf("*base %s, node->value %c, i %d, node->base %d\n", basekey, node->value, i, node->base);
-	while ((*basekey != node->value) && (i++ < node->base))
+	if (!node->value)
+		node->value = basekey[node->symbolindex];
+	else
 	{
-//		printf("*base %c, node->value %c, i %d, node->base %d\n", *basekey, node->value, i, node->base);
-		basekey++;
+		while ((*basekey != node->value) && (i++ < node->base))
+			basekey++;
+		node->symbolindex = i;
 	}
-	node->symbolindex = i;
-//	printf("%d\n", node->symbolindex);
 	return (1);
 }

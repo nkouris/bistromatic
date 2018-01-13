@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:07:37 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/12 15:29:57 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 01:53:25 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 	int	base;
 
 	sub = 0;
-	base = bottom->base;
+	base = (*result)->base;
+	printf("runnsub\n");
 	while ((*result)->remainder || top)
 	{
 		if (!listhookup(result, 1, 0))
@@ -56,11 +57,14 @@ int		runsub(t_list **result, t_list *top, t_list *bottom)
 		((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
 		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);
-		sub = (topsym + (*result)->remainder) - bottomsym;
+		sub = topsym - (bottomsym + (*result)->remainder);
 		if (sub < 0)
-			sub = ((*result)->prev)->remainder;
+		{
+			(*result)->symbolindex = base + sub;
+			((*result)->prev)->remainder = 1;
+		}
 		else
-			sub = (*result)->symbolindex;
+			(*result)->symbolindex = sub;
 		!bottom ? bottom : (bottom = bottom->prev);
 		!top ? top : (top = top->prev);
 		(*result) = (*result)->prev;

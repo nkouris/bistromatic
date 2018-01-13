@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:01:35 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/11 13:01:37 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/01/13 01:53:23 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ int		valid_input(char **head, char *base)
 {
 	static int	brij[4];
 	char		*new;
-printf("HERE\n");
-	new = (char *)malloc(ft_strlen(*head) + 1);
+printf("Validating...\n");
+	new = (char *)ft_memalloc(ft_strlen(*head) + 1);
 	while ((*head)[brij[2]] != '\0')
 	{
 		while ((*head)[brij[2]] == base[0] &&

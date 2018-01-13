@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/12 21:02:21 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 01:53:24 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 	int	base;
 
 	add = 0;
-	base = bottom->base;
+	base = (*result)->base;
 	printf("runnadd\n");
-	printf("HEAD start of add: %p SYMindex: %d\n", (*result), (*result)->symbolindex);
 	while ((*result)->remainder || top)
 	{
 		if (!listhookup(result, 1, 0))
@@ -52,8 +51,9 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 		((*result)->isneg) ? (((*result)->prev)->isneg) = 1 : ((*result)->prev)->isneg;
 		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);
+	printf("add %d + (%d + %d)", bottomsym, topsym, (*result)->remainder);
 		add = bottomsym + (topsym + (*result)->remainder);
-		if (add > base)
+		if (add >= base)
 			addremainder(result, add, base);
 		else
 			(*result)->symbolindex = add;
@@ -62,7 +62,6 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 		!top ? top : (top = top->prev);
 		(*result) = (*result)->prev;
 	}
-	printf("HEAD end of add: %p SYMindex: %d NEXT: %p\n", (*result), (*result)->symbolindex, (*result)->next);
 	printf("end of add\n");
 	return (1);
 }

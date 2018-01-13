@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 21:00:34 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/12 21:00:43 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 00:57:38 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ void	rpn2(char *str, int *i, t_list **start, t_operator **stack)
 		push_stack(str[*i], stack);
 	else
 	{
-//		printf("HERE inside\n");
 		if (precedence(str[*i], (*stack)->op) > 0)
+		{
+			printf("Precedence\n");
 			push_stack(str[*i], stack);
+		}
 		else
 		{
-//			printf("HERE inside inside1\n");
 			while (precedence(str[*i], (*stack)->op) < 1)
 			{
 				pop_stack(start, stack);
@@ -34,7 +35,6 @@ void	rpn2(char *str, int *i, t_list **start, t_operator **stack)
 					break ;
 
 			}
-//			printf("HERE inside inside2\n");
 			push_stack(str[*i], stack);
 		}
 	}
@@ -51,7 +51,7 @@ int		rpn(t_list **start, char *str, char *basekey)
 	
 	while (str[i])
 	{
-		printf("%d [%c], %s\n", i, str[i], basekey);
+		printf("FIND...\nstrPOS: %d numSYM: [%c] basekey: %s\n", i, str[i], basekey);
 		if (ft_find(str[i], basekey) == 1)// ||
 //			(str[i + 1] && ft_find(str[i + 1], basekey) == 1))
 			add_list_node(str, i, start, basekey);
@@ -65,38 +65,11 @@ int		rpn(t_list **start, char *str, char *basekey)
 			
 		}
 		else return (1);
-		printf("HERE1\n");
 		i++;
-//		while (stack != NULL && stack->prev != NULL)
-//							stack = stack->prev;
-//						printf("%sSTACK:\n", YELLOW);
-//						if (stack != NULL)
-//						{
-//						printf("%c ", stack->op);
-//						while (stack->next != NULL)
-//						{
-//							stack = stack->next;
-//							printf("%c ", stack->op);
-//						}
-//						printf("\n%s", NORMAL);
-//						}
-//						else
-//							printf("\n%s", NORMAL);
+	printf("base: %d\n", (*start)->base);
 	}
 	if (stack != NULL)
 		pop_stack(start, &stack);
 	printf("HERE2\n");
 	return (0);
 }
-
-//int		main(int ac, char **av)
-//{
-//	t_list *start;
-//	
-//	start = NULL;
-//	if (ac == 2)
-//		printf("RETURNED VALUE:	%d\n", rpn(av[1], &start));
-//	return (0);
-//	
-//}
-
