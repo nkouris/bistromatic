@@ -30,7 +30,31 @@ void	free_stack_node(t_operator **stack)
 void	pop_stack(t_list **start, t_operator **stack)
 {
 //	printf("I'M IN POP_STACK! start->op: %c\n", (*stack)->op);
+	printf("send\n");
+	printf("send [%c] [%d]\n", (*stack)->op, (*start)->symbolindex);
+	
+	
+//		if ((*start) != NULL)
+//		{
+//			if ((*start)->value != '\0')
+//			{
+//				printf("%sSTART:\n", CYAN);
+//				printf("%c ", (*start)->value);
+//			}
+//			while ((*start)->next != NULL)
+//			{
+//				*start = (*start)->next;
+//				printf("%c ", (*start)->value);
+//				if ((*start)->next == NULL)
+//					printf("\n%s", NORMAL);
+//			}
+//			while ((*start)->prev != NULL)
+//				*start = (*start)->prev;
+//		}
+	
+	
 	sendoperands(start, (*stack)->op, true);
+	printf("send2\n");
 //	printf("I'M IN POP_STACK!2\n");
 	free_stack_node(stack);
 //	printf("I'M IN POP_STACK!3\n");
@@ -55,7 +79,6 @@ void	push_stack(char op, t_operator **stack)
 	else
 		sign->prev = NULL;
 	*stack = sign;
-	
 //	//if you want to see how the stack is building, uncomment code below
 //	while ((*stack)->prev != NULL)
 //		*stack = (*stack)->prev;

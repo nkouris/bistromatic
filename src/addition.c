@@ -14,6 +14,7 @@
 
 int		addtrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 {
+	printf("start addition\n");
 	if (max == 1)
 	{
 		if (!operand1->isneg && operand2->isneg)
@@ -42,6 +43,11 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 
 	add = 0;
 	base = bottom->base;
+	printf("runnadd\n");
+	printf("HEAD start of add: %p SYMindex: %d\n", (*result), (*result)->symbolindex);
+	
+	
+	
 	while ((*result)->remainder || top)
 	{
 		if (!listhookup(result, 1, 0))
@@ -50,14 +56,17 @@ int		runadd(t_list **result, t_list *top, t_list *bottom)
 		!bottom ? (bottomsym = 0) : (bottomsym = bottom->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);
 		add = bottomsym + (topsym + (*result)->remainder);
-		if (add > base) 
+		if (add > base)
 			addremainder(result, add, base);
 		else
 			(*result)->symbolindex = add;
+		printf("result of add: %d\n", (*result)->symbolindex);
 		!bottom ? bottom : (bottom = bottom->prev);
 		!top ? top : (top = top->prev);
 		(*result) = (*result)->prev;
 	}
+	printf("HEAD end of add: %p SYMindex: %d NEXT: %p\n", (*result), (*result)->symbolindex, (*result)->next);
+	printf("end of add\n");
 	return (1);
 }
 

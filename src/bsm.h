@@ -58,7 +58,7 @@ int		main(int argc, char **argv);
 
 /* store.c */
 int		readandstore(char **argv, char **input_base, int *base);
-int		indexsymbol(int b, t_list *node);
+int		indexsymbol(t_list *node);
 
 /* addition.c */
 void	addremainder(t_list **result, int add, int base);
@@ -88,6 +88,7 @@ int		maxindex(t_list **operand1, t_list **operand2, char op);
 int		sendoperands(t_list **head, char op, bool delhead);
 int		listhookup(t_list **node, bool prev, bool na);
 t_list	*sym_lst(t_list *temp);
+void	append(t_list **head);
 
 /* tools.c */
 int		precedence(char op1, char op2);

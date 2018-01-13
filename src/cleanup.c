@@ -16,8 +16,8 @@ int		lstdel(t_list **start)
 {
 	t_list *temp;
 
-	if (*((*start)->basekey))
-		free((void *)((*start)->basekey));
+//	if (*((*start)->basekey))
+//		free((void *)((*start)->basekey));
 	if ((*start)->next)
 	{
 		while ((*start))

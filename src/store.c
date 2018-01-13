@@ -23,7 +23,7 @@ int		readandstore(char **argv, char **input_base, int *base)
 	if (!(nstrbasekey = (int)ft_strlen((const char *)argv[1]))
 		|| !(nstrinput = (int)ft_strlen((const char *)argv[2]))
 		|| !(input_size = (char *)ft_strnew((size_t)nstrinput))
-		|| !(ninput = ft_atoi(input_size))
+		|| !(ninput = ft_atoi(argv[2]))
 		|| !(input = (char *)ft_strnew((size_t)ninput))
 		|| (read(0, input, (size_t)ninput) < 0)
 		|| !(input_size = (char *)ft_strnew((size_t)nstrbasekey))
@@ -35,21 +35,21 @@ int		readandstore(char **argv, char **input_base, int *base)
 	return (1);
 }
 
-int		indexsymbol(int b, t_list *node)
+int		indexsymbol(t_list *node)
 {
 	int		i;
 	char	*basekey;
-
+//	printf("indexsym1\n");
 	i = 0;
 	basekey = node->basekey;
-	while (*basekey != node->value && i++ < b)
-		basekey++;
-	if (i > b)
+//	printf("indexsym1.1 value: %c %s\n", node->value, node->basekey);
+//	printf("*base %s, node->value %c, i %d, node->base %d\n", basekey, node->value, i, node->base);
+	while ((*basekey != node->value) && (i++ < node->base))
 	{
-		ft_putstr("syntax error");
-		return (0);
+//		printf("*base %c, node->value %c, i %d, node->base %d\n", *basekey, node->value, i, node->base);
+		basekey++;
 	}
-	node->base = b;
 	node->symbolindex = i;
+//	printf("%d\n", node->symbolindex);
 	return (1);
 }
