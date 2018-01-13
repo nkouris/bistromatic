@@ -106,7 +106,7 @@ int		valid_input(char **head, char *base)
 {
 	static int	brij[4];
 	char		*new;
-
+	printf("INPUT = [%s]", *head);
 	new = (char *)malloc(ft_strlen(*head) + 1);
 	while ((*head)[brij[2]] != '\0')
 	{

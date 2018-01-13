@@ -36,9 +36,9 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	// delhead to protect recursion of division head, which is a composite of
 	// the divisor and temporary dividend
 // wrap lstdel with return value 
-	delhead ? error = lstdel(*head) : error;
-	lstdel(operand1);
-	lstdel(operand2);
+	delhead ? error = lstdel(head) : error;
+	lstdel(&operand1);
+	lstdel(&operand2);
 	(*head) = result;
 // fill node->value with index value corresponding symbol
 	return (error);

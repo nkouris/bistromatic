@@ -31,6 +31,8 @@ INC += src/libft/ft_strcpy
 INC += src/libft/ft_strlen
 INC += src/libft/ft_strnew
 INC += src/libft/ft_putstr
+INC += src/libft/ft_putchar
+INC += src/libft/ft_atoi
 
 all: $(NAME)
 
