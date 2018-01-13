@@ -14,16 +14,17 @@
 
 int		readandstore(char **argv, char **input_base, int *base)
 {
-	int		ninputput;
+	int		ninput;
 	int		nstrbasekey;
 	int		nstrinput;
 	char	*input_size;
+	char	*input;
 
 	if (!(nstrbasekey = (int)ft_strlen((const char *)argv[1]))
 		|| !(nstrinput = (int)ft_strlen((const char *)argv[2]))
 		|| !(input_size = (char *)ft_strnew((size_t)nstrinput))
 		|| !(ninput = ft_atoi(input_size))
-		|| !((*input) = (char *)ft_strnew((size_t)ninput))
+		|| !(input = (char *)ft_strnew((size_t)ninput))
 		|| (read(0, input, (size_t)ninput) < 0)
 		|| !(input_size = (char *)ft_strnew((size_t)nstrbasekey))
 		|| !(ft_strcpy(input_size, (const char *)(argv[1]))))

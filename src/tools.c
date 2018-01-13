@@ -12,28 +12,6 @@
 
 #include "bsm.h"
 
-void	solve_equation(char	op, t_list **start)
-{
-	t_list *top;
-	t_list *bottom;
-
-	top = *start;
-	while ((*start)->next != NULL)
-		*start = (*start)->next;
-	bottom = *start;
-	
-	if (op == '+')
-		runadd(start, top, bottom);
-	//	if (op == '%')
-	//		modulo(start);
-	//	if (op == '/')
-	//		division(start);
-	if (op == '*')
-		runmul(start, top, bottom);
-	if (op == '-')
-		runsub(start, top, bottom);
-}
-
 /*
 **	Function precedence returns
 **	->	negative number when the last operator on a stack is more important
@@ -46,7 +24,6 @@ void	solve_equation(char	op, t_list **start)
 
 int		precedence(char op1, char op2)
 {
-//	printf("%sIM IN PRECEDENCE: op1 %c, op2 %c\n%s", MAGNETA, op1, op2, NORMAL);
 	if (op1 == '-' || op1 == '+')
 		op1 = '1';
 	else if (op1 == '*' || op1 == '/' || op1 == '%')
@@ -59,8 +36,7 @@ int		precedence(char op1, char op2)
 		op2 = '1';
 	else if (op2 == '*' || op2 == '/' || op2 == '%')
 		op2 = '2';
-//	printf("%sPRECEDENCE: %d\n%s", MAGNETA, (int)(op1 - op2), NORMAL);
-	return((int)(op1 - op2));
+	return ((int)(op1 - op2));
 }
 
 int		ft_find(char c, char *basekey)
