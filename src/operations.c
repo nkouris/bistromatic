@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 01:53:21 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 03:40:31 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	operandsplit(head, &operand1, &operand2);
 	max = maxindex(&operand1, &operand2, op);
 printf("max: %d\n", max);
-	op =='+' ? error = addtrack(&result, operand1, operand2, max) : error;
+	op == '+' ? error = addtrack(&result, operand1, operand2, max) : error;
 	op == '-' ? error = subtrack(&result, operand1, operand2, max) : error;
 	op == '*' ? error = multrack(&result, operand1, operand2, max) : error;
 //	op = '/' ? error = rundiv(&result, &operand1, &operand2, max) : error;
@@ -40,10 +40,11 @@ printf("max: %d\n", max);
 	// the divisor and temporary dividend
 // wrap lstdel with return value
 //	printf("send inside4\n");
+printf("delhead: %d\n", delhead);
 	delhead ? error = lstdel(head) : error;
 	(*head) = result;
 	append(head);
-printf("%sNA: %p\nna: %d\nprev: %p\nnext: %p\n%s", BLUE, (*head), (*head)->na, (*head)->prev, (*head)->next, NORMAL);
+printf("%sNA: %p\nna: %d\nprev: %p\nnext: %p\n%s", CYAN, (*head), (*head)->na, (*head)->prev, (*head)->next, NORMAL);
 	return (error);
 }
 
@@ -69,7 +70,7 @@ printf("Start split\n");
 		{
 			if (i)
 				temp->isneg = 1;
-printf("%sindex: %d\nbase: %d\nkey: %s\ntemp: %p\nprev: %p\nnext: %p\n%s", GREEN, temp->symbolindex, temp->base, temp->basekey, temp, temp->prev, temp->next, NORMAL);
+printf("%sindex: \t\t\t\t%d\nbase: %d\nkey: %s\ntemp: %p\nprev: %p\nnext: %p\n%s", GREEN, temp->symbolindex, temp->base, temp->basekey, temp, temp->prev, temp->next, NORMAL);
 			temp = temp->next;
 		}
 		if (temp->next)

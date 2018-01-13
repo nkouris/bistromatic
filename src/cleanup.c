@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 16:26:19 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/12 23:19:11 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 03:40:29 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		lstdel(t_list **start)
 
 //	if (*((*start)->basekey))
 //		free((void *)((*start)->basekey));
+printf("DELETING\n");
 	if ((*start)->next)
 	{
 		while ((*start))

@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 00:34:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/12 15:29:59 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 03:40:26 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@ int		multrack(t_list **result, t_list *operand1, t_list *operand2, int max)
 
 int		runmul(t_list **result, t_list *top, t_list *bottom)
 {
-	int	mul;
-	int	bottomsym;
-	int	topsym;
-	int	base;
-	int	addlevel;
+	int		mul;
+	int		bottomsym;
+	int		topsym;
+	int		base;
+	int		addlevel;
+	t_list	*ttop;
 
 	mul = 0;
 	addlevel = 0;
-	base = bottom->base;
+	base = (*result)->base;
+	ttop = top;
+	printf("Run mul\n");
 	while (bottom)
 	{
 		bottomsym = bottom->symbolindex;
@@ -43,20 +46,26 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 				return (0);
 			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
 			!top ? (topsym = 0) : (topsym = top->symbolindex);
+		printf("topsym: %d * botsym: %d\n", topsym, bottomsym);
 			mul = (bottomsym * topsym) + (*result)->remainder;
-			if (mul > base)
+			if (mul >= base)
 				mulremainder(result, mul, base);
 			else
 				(*result)->symbolindex = mul;
 			!top ? top : (top = top->prev);
 			(*result) = (*result)->prev;
+			printf("addlevel: %d\n", addlevel);
 		}
 		addlevel++;
+printf("addlevel: %d\n", addlevel);
 		bottom = bottom->prev;
+		top = ttop;
 		if (addlevel > 1)
 		{
-			sendoperands(result, '+', 1);
-			mulmagpush(result, 0);
+			printf("grow mag\n");
+			mulmagpush(result, addlevel);
+			sendoperands(result, '+', 0);
+			printf("level added\nresult: %p\n", (*result));
 		}
 		if (bottom)
 		   	mulmagpush(result, addlevel);
@@ -66,6 +75,10 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 
 int		mulmagpush(t_list **result, int addlevel)
 {
+	int		temp;
+
+	temp = 0;
+printf("magpush: %d\n", addlevel);
 	if (addlevel)
 	{
 		(*result)->na = 1;
@@ -75,11 +88,14 @@ int		mulmagpush(t_list **result, int addlevel)
 				return (0);
 			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
 			(*result) = (*result)->prev;
-			addlevel > 0 ? (*result)->symbolindex = 0 : (*result)->symbolindex;
+			addlevel >= 0 ? (*result)->symbolindex = 0 : (*result)->symbolindex;
 		}
 	}
-	while ((*result)->next)
-		(*result) = (*result)->next;
+	if (temp > 1)
+	{
+		while ((*result)->next)
+			(*result) = (*result)->next;
+	}
 	return (1);
 }
 
