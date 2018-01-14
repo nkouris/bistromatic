@@ -113,7 +113,7 @@ int		printresult(t_list *list);
 int		validation(char **head, char *base);
 
 /* parsing.c */
-int	remove_floats(char **head, char *base, int i, int j);
+int		remove_floats(char **head, char *base, int i, int j);
 
 /* cleanup.c */
 int		lstdel(t_list **start);

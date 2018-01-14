@@ -17,6 +17,7 @@ SRC += src/linked_list
 SRC += src/print
 SRC += src/tools
 SRC += src/cleanup
+SRC += src/parsing
 SRC += src/validation
 
 # GENERAL LIBFT FUNCTIONS

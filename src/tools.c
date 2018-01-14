@@ -50,8 +50,3 @@ int		ft_find(char c, char *basekey)
 	return (0);
 }
 
-/*
-**	Function below:
-**	-> 0 means positive;
-**	-> 1 means negative;
-*/
