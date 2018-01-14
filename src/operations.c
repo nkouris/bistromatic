@@ -6,7 +6,11 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/01/13 23:43:44 by nkouris          ###   ########.fr       */
+=======
+/*   Updated: 2018/01/13 23:37:20 by nkouris          ###   ########.fr       */
+>>>>>>> f01cfd5cd03ebdb6323fa50bb827891231bf7d33
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +28,12 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	op2 = 0;
 	error = 1;
 	
+<<<<<<< HEAD
+=======
+//	check_op(&op, head);
+	printf("AFTER CHECKING OP: %c\n", op);
+	
+>>>>>>> f01cfd5cd03ebdb6323fa50bb827891231bf7d33
 	printf("%sSENDLIST: ", CYAN);
 	while ((*head)->next != NULL)
 	{
