@@ -52,8 +52,8 @@ int		rpn(t_list **start, char *str, char *basekey)
 	while (str[i])
 	{
 		printf("RPN: str[%d]: [%c], basekey: %s\n", i, str[i], basekey);
-		if ((ft_find(str[i], basekey) == 1) ||
-			(i > 0 && str[i] == '-' && ft_find(str[i + 1], basekey) == 1 && str[i - 1] == 40)
+		if ((ft_find(str[i], basekey) == 1) || (i > 0 && str[i] == '-' &&
+		ft_find(str[i + 1], basekey) == 1 && ft_find(str[i - 1], "*/%(") == 1)
 			|| (i == 0 && str[i] == '-' && ft_find(str[i + 1], basekey) == 1))
 			add_list_node(str, i, start, basekey);
 		else if (IS_OPER(str[i]))
