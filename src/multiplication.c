@@ -6,28 +6,28 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 00:34:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 14:13:19 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 22:30:03 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsm.h"
 
-int		multrack(t_list **result, t_list *operand1, t_list *operand2, int max)
+int		multrack(t_list **res, t_list *op1, t_list *op2, int max)
 {
 	printf("MulTRack\n");
-	if (operand1->isneg || operand2->isneg)
-		(*result)->isneg = 1;
+	if ((op1->isneg || op2->isneg) && !(op1->isneg && op2->isneg))
+		(*res)->isneg = 1;
 	if (max == 1)
-		return (runmul(result, operand1, operand2));
+		return (runmul(res, op1, op2));
 	else if (max == 2)
-		return (runmul(result, operand2, operand1));
+		return (runmul(res, op2, op1));
 	return (0);
 }
 
-int		runmul(t_list **result, t_list *top, t_list *bottom)
+int		runmul(t_list **res, t_list *top, t_list *bot)
 {
 	int		mul;
-	int		bottomsym;
+	int		botsym;
 	int		topsym;
 	int		base;
 	int		addlevel;
@@ -35,47 +35,47 @@ int		runmul(t_list **result, t_list *top, t_list *bottom)
 
 	mul = 0;
 	addlevel = 0;
-	base = (*result)->base;
+	base = (*res)->base;
 	ttop = top;
 printf("Run mul\n");
-	while (bottom)
+	while (bot)
 	{
-		bottomsym = bottom->symbolindex;
-		while ((*result)->remainder || top)
+		botsym = bot->symbolindex;
+		while ((*res)->remainder || top)
 		{
-			if (!listhookup(result, 1, 0))
+			if (!listhookup(res, 1, 0))
 				return (0);
-			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
+			((*res)->isneg) ? ((*res)->prev)->isneg = 1 : ((*res)->prev)->isneg;
 			!top ? (topsym = 0) : (topsym = top->symbolindex);
-	printf("topsym: %d * botsym: %d\n", topsym, bottomsym);
-			mul = (bottomsym * topsym) + (*result)->remainder;
+	printf("topsym: %d * botsym: %d\n", topsym, botsym);
+			mul = (botsym * topsym) + (*res)->remainder;
 			if (mul >= base)
-				mulremainder(result, mul, base);
+				mulremainder(res, mul, base);
 			else
-				(*result)->symbolindex = mul;
+				(*res)->symbolindex = mul;
 			!top ? top : (top = top->prev);
-			(*result) = (*result)->prev;
+			(*res) = (*res)->prev;
 //			printf("addlevel: %d\n", addlevel);
 		}
 		addlevel++;
 //printf("addlevel: %d\n", addlevel);
-		bottom = bottom->prev;
+		bot = bot->prev;
 		top = ttop;
 		if (addlevel > 1)
 		{
 //			printf("grow mag\n");
-			mulmagpush(result, addlevel);
-			sendoperands(result, '+', 0);
-//			printf("level added\nresult: %p\n", (*result));
+			mulmagpush(res, addlevel);
+			sendoperands(res, '+', 0);
+//			printf("level added\nres: %p\n", (*res));
 		}
-		if (bottom)
-		   	mulmagpush(result, addlevel);
+		if (bot)
+		   	mulmagpush(res, addlevel);
 	}
 	printf("MulComplete\n");
 	return (1);
 }
 
-int		mulmagpush(t_list **result, int addlevel)
+int		mulmagpush(t_list **res, int addlevel)
 {
 	int		temp;
 
@@ -83,26 +83,26 @@ int		mulmagpush(t_list **result, int addlevel)
 printf("magpush: %d\n", addlevel);
 	if (addlevel)
 	{
-		(*result)->na = 1;
+		(*res)->na = 1;
 		while (addlevel-- > -1)
 		{
-			if (!listhookup(result, 1, 0))
+			if (!listhookup(res, 1, 0))
 				return (0);
-			((*result)->isneg) ? ((*result)->prev)->isneg = 1 : ((*result)->prev)->isneg;
-			(*result) = (*result)->prev;
-			addlevel >= 0 ? (*result)->symbolindex = 0 : (*result)->symbolindex;
+			((*res)->isneg) ? ((*res)->prev)->isneg = 1 : ((*res)->prev)->isneg;
+			(*res) = (*res)->prev;
+			addlevel >= 0 ? (*res)->symbolindex = 0 : (*res)->symbolindex;
 		}
 	}
 	if (temp > 1)
 	{
-		while ((*result)->next)
-			(*result) = (*result)->next;
+		while ((*res)->next)
+			(*res) = (*res)->next;
 	}
 	return (1);
 }
 
-void	mulremainder(t_list **result, int mul, int base)
+void	mulremainder(t_list **res, int mul, int base)
 {
-	(*result)->symbolindex = mul % base;
-	((*result)->prev)->remainder = mul / base;
+	(*res)->symbolindex = mul % base;
+	((*res)->prev)->remainder = mul / base;
 }

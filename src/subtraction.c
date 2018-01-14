@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:07:37 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 14:13:17 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 18:05:38 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int		subtrack(t_list **result, t_list *op1, t_list *op2, int max)
 	else if (max == 2)
 	{
 		if ((!op2->isneg && !op1->isneg)
-			|| (!op2->isneg && op1->isneg)
-			|| (op2->isneg && !op1->isneg))
+			|| (!op2->isneg && op1->isneg))
 			(*result)->isneg = 1;
 		if ((!op2->isneg && !op1->isneg)
-			|| (op2->isneg && !op1->isneg))
+			|| (op2->isneg && op1->isneg))
 			return (runsub(result, op2, op1));
 		else
 			return (runadd(result, op2, op1));

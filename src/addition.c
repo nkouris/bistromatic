@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 14:13:16 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 23:37:18 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ int		addtrack(t_list **result, t_list *op1, t_list *op2, int max)
 	if (max == 1)
 	{
 		printf("op1neg: %d\n", op1->isneg);
+		if (op1->isneg || (op1->isneg && op2->isneg))
+			(*result)->isneg = 1;
 		if ((!op1->isneg && op2->isneg)
 			|| (op1->isneg && !op2->isneg))
 			return (runsub(result, op1, op2));
-		if (op1->isneg || (op1->isneg && op2->isneg))
-			(*result)->isneg = 1;
 		return (runadd(result, op1, op2));
 	}
 	else if (max == 2)
 	{
+		if (op2->isneg || (op2->isneg && op1->isneg))
+			(*result)->isneg = 1;
 		if ((!op2->isneg && op1->isneg)
 			|| (op2->isneg && !op1->isneg))
 			return (runsub(result, op2, op1));
-		if (op2->isneg || (op2->isneg && op1->isneg))
-			(*result)->isneg = 1;
 		return (runadd(result, op2, op1));
 	}
 	return (0);
@@ -46,8 +46,9 @@ int		runadd(t_list **result, t_list *top, t_list *bot)
 
 	add = 0;
 	base = (*result)->base;
-	
-	printf("runnadd\n");
+	printf("runadd\n");
+	printf("start top: %p\n", top);
+	printf("start bot: %p\n", bot);
 	while ((*result)->remainder || top)
 	{
 		if (!listhookup(result, 1, 0))
