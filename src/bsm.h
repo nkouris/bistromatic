@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 19:26:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/13 20:02:32 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 07:08:10 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		runsub(t_list **result, t_list *top, t_list *bottom);
 int		subtrack(t_list **result, t_list *operand1, t_list *operand2, int max);
 
 /* multiplication.c */
-void	mulremainder(t_list **result, int mul, int base);
+void	mulremainder(t_list *res, int mul, int base);
 int		mulmagpush(t_list **result, int addlevel);
 int		runmul(t_list **result, t_list *top, t_list *bottom);
 int		multrack(t_list **result, t_list *operand1, t_list *operand2, int max);
@@ -83,7 +83,7 @@ void	snipdiv(t_list **remainder, t_list **operand1, t_list *operand2);
 int		rundiv(t_list **result, t_list **operand1, t_list **operand2, int max);
 
 /* operations.c */
-int		operandsplit(t_list **head, t_list **operand1, t_list **operand2);
+int		operandsplit(t_list *head, t_list **operand1, t_list **operand2);
 int		maxindex(t_list **operand1, t_list **operand2, char op);
 int		sendoperands(t_list **head, char op, bool delhead);
 int		listhookup(t_list **node, bool prev, bool na);
@@ -93,6 +93,7 @@ void	append(t_list **head);
 /* tools.c */
 int		precedence(char op1, char op2);
 int		ft_find(char c, char *base);
+void	moveto_order(t_list **op1, t_list **op2, bool low);
 
 /* rpn.c */
 int		rpn(t_list **start, char *str, char *basekey);
@@ -103,8 +104,8 @@ void	push_stack(char op, t_operator **stack);
 void	pop_stack(t_list **start, t_operator **stack);
 
 /* linked_list.c */
-t_list	*add_na(t_list *previous, t_list **start);
-void	add_list_node(char *str, int i, t_list **start, char *basekey);
+int		add_na(t_list *new);
+int		add_list_node(char *str, int i, t_list **start, char *basekey);
 
 /* print.c */
 int		printresult(t_list *list);
