@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 19:26:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/13 01:53:53 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 20:02:32 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_list	*add_na(t_list *previous, t_list **start);
 void	add_list_node(char *str, int i, t_list **start, char *basekey);
 
 /* print.c */
-void	printresult(t_list *list);
+int		printresult(t_list *list);
 
 /* validation.c */
 int		validation(char **head, char *base);

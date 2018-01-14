@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:36:27 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/13 01:27:56 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 18:14:36 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ printf("%sAdd na\n", YELLOW);
 	na->prev = previous;
 	na->na = true;
 	na->value = '\0';
-	na->numlen = 0;
+	na->numlen = previous->numlen;
 	na->base = previous->base;
 	*start = na;
 	printf("NA: %p\nPrev: %p\nNext: %p\n%s", na, na->prev, na->next, NORMAL);

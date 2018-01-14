@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 21:00:34 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 13:30:14 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 23:37:17 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		rpn(t_list **start, char *str, char *basekey)
 			while (stack && stack->op != '(')
 				pop_stack(start, &stack);
 			free_stack_node(&stack);
-			
 		}
 		else return (0);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 14:13:15 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 23:37:20 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	op2 = 0;
 	error = 1;
 	
-	check_op(&op, head);
+//	check_op(&op, head);
 	printf("AFTER CHECKING OP: %c\n", op);
 	
 	printf("%sSENDLIST: ", CYAN);
@@ -67,7 +67,7 @@ printf("max: %d\n", max);
 	// the divisor and temporary dividend
 // wrap lstdel with return value
 //	printf("send inside4\n");
-//printf("delhead: %d\n", delhead);
+printf("delhead: %p\n", (*head));
 	delhead ? error = lstdel(head) : error;
 	(*head) = result;
 	append(head);
@@ -93,7 +93,6 @@ printf("Start split\n");
 			i = 1;
 			temp = temp->next;
 			temp->prev = 0;
-			ft_memdel((void **)&(*head));
 		}
 		while (!(temp->na))
 		{
@@ -173,21 +172,47 @@ int		listhookup(t_list **node, bool prev, bool na)
 void	append(t_list **head)
 {
 	t_list *temp;
+	int		numlen;
 	
+	numlen = 1;
+	while ((*head)->next != NULL)
+	{
+		if ((*head)->na != 1)
+			printf("%d -> ", (*head)->symbolindex);
+		else
+			printf("NA -> ");
+		*head = (*head)->next;
+	}
+	if ((*head)->na != 1)
+		printf("%d -> ", (*head)->symbolindex);
+	else
+		printf("NA -> ");
+	printf("null\n");
+	while ((*head)->prev != NULL)
+		*head = (*head)->prev;
+
+
 	temp = (*head);
 	temp->prev = 0;
 	if ((*head)->isneg)
+	{
+		printf("addlen & neg\n");
 		(*head)->value = '-';
+	}
 	else
 	{
 		(*head) = (*head)->next;
 		free(temp);
 		(*head)->prev = 0;
+		(*head)->numlen = numlen;
 	}
 	while ((*head)->next)
 	{
+		printf("addlen\n");
 		indexsymbol(*head);
+		(*head)->numlen = numlen++;
 		(*head) = (*head)->next;
 	}
+
 }
 

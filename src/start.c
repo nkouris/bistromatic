@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:15:08 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/12 20:59:35 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/13 22:02:27 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		main(int argc, char **argv)
 		printf("HERE1\n");
 		return (0);
 	}
-	printf("%p\n", new);
 	printresult(new);
+	return (1);
 }
 
