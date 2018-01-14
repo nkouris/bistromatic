@@ -93,7 +93,6 @@ void	append(t_list **head);
 /* tools.c */
 int		precedence(char op1, char op2);
 int		ft_find(char c, char *base);
-void	check_op(char *curr, t_list **head);
 
 /* rpn.c */
 int		rpn(t_list **start, char *str, char *basekey);
@@ -113,8 +112,10 @@ void	printresult(t_list *list);
 /* validation.c */
 int		validation(char **head, char *base);
 
+/* parsing.c */
+int	remove_floats(char **head, char *base, int i, int j);
+
 /* cleanup.c */
 int		lstdel(t_list **start);
-void	free_one_node(t_list *prev, t_list *curr, t_list *next);
 
 #endif

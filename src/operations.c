@@ -24,9 +24,6 @@ int		sendoperands(t_list **head, char op, bool delhead)
 	operand2 = 0;
 	error = 1;
 	
-	check_op(&op, head);
-	printf("AFTER CHECKING OP: %c\n", op);
-	
 	printf("%sSENDLIST: ", CYAN);
 	while ((*head)->next != NULL)
 	{

@@ -129,16 +129,27 @@ int		valid_input(char **head, char *base)
 	}
 	new[brij[3]] = '\0';
 	*head = new;
-	printf("HERE new = %s\n", new);
+//	printf("HERE new = %s\n", new);
 	return (brij[0] == 0 ? 0 : -1);
 }
 
 int		validation(char **head, char *base)
 {
+//	int res = 0;
 	if (valid_input(head, base) == -1)
 	{
 		write(1, "syntax error\n", 13);
 		return (-1);
 	}
+//	printf("%sBEFORE:	[%s]\n%s", YELLOW, *head, NORMAL);
+	while ((remove_floats(head, base, 0, 0)) == 1)
+		;
+//	{
+//		printf("REMOVE FLOATS RES = %d\n", res);
+//		printf("%sAFTER:	[%s]\n\n%s", GREEN, *head, NORMAL);
+//		printf("%sBEFORE:	[%s]\n%s", YELLOW, *head, NORMAL);
+//	}
+//	printf("REMOVE FLOATS RES = %d\n", res);
+//	printf("%sAFTER:	[%s]%s\n", GREEN, *head, NORMAL);
 	return (0);
 }
