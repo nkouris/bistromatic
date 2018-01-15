@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:15:08 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/13 22:02:27 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 23:49:18 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		main(int argc, char **argv)
 		|| (validation(&(input_base[0]), input_base[1]) != 0)
 		|| !(rpn(&new, input_base[0], input_base[1])))
 	{
-		printf("HERE1\n");
 		return (0);
 	}
 	printresult(new);
