@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 14:06:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/14 19:47:22 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 22:32:52 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int		maxindex(t_list **op1, t_list **op2, char op)
 
 int		listhookup(t_list **node, bool prev, bool na)
 {
+printf("listhookup\n");
 	if (prev)
 	{
 		if (!((*node)->prev = ft_memalloc(sizeof(t_list))))
