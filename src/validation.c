@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:01:35 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/13 01:53:23 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 23:34:05 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		choose_sign(int *i, char *str, char *base)
 	sign = 1;
 	if ((str[*i] == '*' || str[*i] == '%' || str[*i] == '/') && (*i > 0) &&
 		(ft_find(str[*i - 1], base) == 1 || str[*i - 1] == 41) &&
-		(ft_find(str[*i + 1], base) == 1 || str[*i + 1] == 40))
+		((ft_find(str[*i + 1], base) == 1 || str[*i + 1] == 40 || str[*i + 1] =='-')))
 		return (2);
 	else if (str[*i] == '+' || str[*i] == '-')
 	{
