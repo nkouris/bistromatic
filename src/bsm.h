@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 19:26:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/14 07:08:10 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 16:34:50 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		rpn(t_list **start, char *str, char *basekey);
 void	free_stack_node(t_operator **stack);
 void	push_stack(char op, t_operator **stack);
 void	pop_stack(t_list **start, t_operator **stack);
+t_list	*sublist(t_list **head, t_list **sub);
 
 /* linked_list.c */
 int		add_na(t_list *new);

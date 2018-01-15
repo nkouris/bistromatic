@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:36:27 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/14 05:40:57 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 19:31:46 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		add_na(t_list *new)
 {
-printf("%sAdd na\n", YELLOW);
+printf("%sAddNa\n", YELLOW);
 	t_list	*na;
 	
 	if (!(na = (t_list *)ft_memalloc(sizeof(t_list))))
@@ -42,10 +42,10 @@ printf("ADD NODE, str[i] = %c!\n", str[i]);
 	new->na = false;
 	new->value = str[i];
 	new->basekey = basekey;
-printf("Head@ start %p\n", (*head));
+//printf("Head@ start %p\n", (*head));
 	if (!(*head))
 	{
-printf("NEW\n");
+//printf("NEW\n");
 		*head = new;
 		new->numlen = ((str[i] == '-') ? 0 : 1);
 		new->base = ft_strlen(basekey);
@@ -57,7 +57,7 @@ printf("NEW\n");
 			temp = temp->next;
 		temp->next = new;
 		new->prev = temp;
-	printf("temp->na: %d\n", temp->na);
+//	printf("temp->na: %d\n", temp->na);
 		if (str[i] == '-')
 			new->numlen = 0;
 		else if (temp->na)

@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:19:05 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/14 02:17:04 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 19:47:23 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		addtrack(t_list **result, t_list *op1, t_list *op2, int max)
 {
-	printf("start addition\n");
+printf("StartAddition\n");
 	if (max == 1)
 	{
-		printf("op1neg: %d\n", op1->isneg);
+//		printf("op1neg: %d\n", op1->isneg);
 		if (op1->isneg || (op1->isneg && op2->isneg))
 			(*result)->isneg = 1;
 		if ((!op1->isneg && op2->isneg)
@@ -46,9 +46,9 @@ int		runadd(t_list **result, t_list *top, t_list *bot)
 
 	add = 0;
 	base = (*result)->base;
-	printf("runadd\n");
-	printf("start top: %p\n", top);
-	printf("start bot: %p\n", bot);
+//	printf("runadd\n");
+//	printf("start top: %p\n", top);
+//	printf("start bot: %p\n", bot);
 	while ((*result)->remainder || top)
 	{
 		if (!listhookup(result, 1, 0))
@@ -56,18 +56,18 @@ int		runadd(t_list **result, t_list *top, t_list *bot)
 		((*result)->isneg) ? (((*result)->prev)->isneg) = 1 : ((*result)->prev)->isneg;
 		!bot ? (botsym = 0) : (botsym = bot->symbolindex);
 		!top ? (topsym = 0) : (topsym = top->symbolindex);
-	printf("add %d + (%d + %d)", botsym, topsym, (*result)->remainder);
+//	printf("add %d + (%d + %d)", botsym, topsym, (*result)->remainder);
 		add = botsym + (topsym + (*result)->remainder);
 		if (add >= base)
 			addremainder(result, add, base);
 		else
 			(*result)->symbolindex = add;
-		printf("result of add: %d\n", (*result)->symbolindex);
+	//	printf("result of add: %d\n", (*result)->symbolindex);
 		!bot ? bot : (bot = bot->prev);
 		!top ? top : (top = top->prev);
 		(*result) = (*result)->prev;
 	}
-	printf("END OF ADD\n");
+printf("AddComplete\n");
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 21:00:34 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/14 04:56:16 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 19:11:52 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void		rpn2(char *str, int *i, t_list **head, t_operator **stack)
 	else
 	{
 		if (precedence(str[*i], (*stack)->op) > 0)
+		{
+		printf("rpn2 pop\n");
 			push_stack(str[*i], stack);
+		}
 		else
 		{
 			while (precedence(str[*i], (*stack)->op) < 1)
@@ -47,7 +50,7 @@ int		rpn(t_list **head, char *str, char *basekey)
 	stack = NULL;
 	while (str[i])
 	{
-printf("RPN: str[%d]: [%c], basekey: %s\n", i, str[i], basekey);
+//printf("RPN: str[%d]: [%c], basekey: %s\n", i, str[i], basekey);
 		if ((ft_find(str[i], basekey) == 1) || (i > 0 && str[i] == '-' &&
 		ft_find(str[i + 1], basekey) == 1 && ft_find(str[i - 1], "*/%(") == 1)
 			|| (i == 0 && str[i] == '-' && ft_find(str[i + 1], basekey) == 1))
@@ -62,10 +65,10 @@ printf("RPN: str[%d]: [%c], basekey: %s\n", i, str[i], basekey);
 		}
 		else return (0);
 		i++;
-printf("HEAD: %p\n", (*head));
+//printf("HEAD: %p\n", (*head));
 	}
-	if (stack != NULL)
+	while (stack != NULL)
 		pop_stack(head, &stack);
-	printf("HERE2\n");
+//	printf("HERE2\n");
 	return (1);
 }

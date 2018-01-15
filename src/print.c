@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 09:52:48 by psprawka          #+#    #+#             */
-/*   Updated: 2018/01/14 04:53:38 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 19:09:03 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ printf("nummlen: %d\n", numlen);
 		printf("value: %c\n", list->value);
 		buf[i++] = list->value;
 		list->next ? (list = list->next) : list;
-	//	printf("i: %d\nbuf: %s\n", i, buf);
+//	printf("i: %d\nbuf: %s\n", i, buf);
 	}
 	write(1, buf, ft_strlen(buf));
 	write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 18:07:37 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/14 07:08:14 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 19:27:04 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		runsub(t_list **res, t_list *top, t_list *bot)
 
 	sub = 0;
 	base = (*res)->base;
-	printf("runsub\n");
+printf("RunSub\n");
 	while ((*res)->remainder || top)
 	{
 		if (!listhookup(res, 1, 0))
@@ -72,6 +72,6 @@ int		runsub(t_list **res, t_list *top, t_list *bot)
 		(*res) = (*res)->prev;
 		
 	}
-	printf("END OF SUB\n");
+printf("SubComplete\n");
 	return (1);
 }

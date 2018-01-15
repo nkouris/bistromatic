@@ -6,7 +6,7 @@
 /*   By: nkouris <nkouris@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 00:34:41 by nkouris           #+#    #+#             */
-/*   Updated: 2018/01/14 07:08:17 by nkouris          ###   ########.fr       */
+/*   Updated: 2018/01/14 19:15:47 by nkouris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		multrack(t_list **res, t_list *op1, t_list *op2, int max)
 {
-	printf("Multrack\n");
+//	printf("Multrack\n");
 	if ((op1->isneg || op2->isneg) && !(op1->isneg && op2->isneg))
 		(*res)->isneg = 1;
 	if (max == 1)
@@ -37,7 +37,7 @@ int		runmul(t_list **res, t_list *top, t_list *bot)
 	addlevel = 0;
 	base = (*res)->base;
 	ttop = top;
-printf("Run mul\n");
+//printf("Run mul\n");
 	while (bot)
 	{
 		botsym = bot->symbolindex;
@@ -47,7 +47,7 @@ printf("Run mul\n");
 				return (0);
 			((*res)->isneg) ? ((*res)->prev)->isneg = 1 : ((*res)->prev)->isneg;
 			!top ? (topsym = 0) : (topsym = top->symbolindex);
-	printf("topsym: %d * botsym: %d\n + rem: %d\n", topsym, botsym, (*res)->remainder);
+//	printf("topsym: %d * botsym: %d\n + rem: %d\n", topsym, botsym, (*res)->remainder);
 			mul = (botsym * topsym) + (*res)->remainder;
 			if (mul >= base)
 				mulremainder((*res), mul, base);
@@ -64,13 +64,13 @@ printf("Run mul\n");
 		if (addlevel > 1)
 		{
 //			printf("grow mag\n");
-			sendoperands(res, '+', 0);
+			sendoperands(res, '+', 1);
 			mulmagpush(res, addlevel);
 //			printf("level added\nres: %p\n", (*res));
 		}
 		else if (bot)
 		   	mulmagpush(res, addlevel);
-		printf("nextlvl %pi\n", (*res));
+//		printf("nextlvl %pi\n", (*res));
 	}
 	printf("MulComplete\n");
 	return (1);
@@ -82,13 +82,13 @@ int		mulmagpush(t_list **res, int addlevel)
 //	t_list	*temp;
 
 	deltop = addlevel;
-printf("magpush: %d\n", addlevel);
+//printf("magpush: %d\n", addlevel);
 	if (addlevel)
 	{
 		(*res)->na = 1;
 		while (addlevel-- > 0)
 		{
-		printf("addlevel\n");
+	//	printf("addlevel\n");
 			if (!listhookup(res, 1, 0))
 				return (0);
 			((*res)->isneg) ? ((*res)->prev)->isneg = 1 : ((*res)->prev)->isneg;
