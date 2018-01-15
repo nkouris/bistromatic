@@ -36,8 +36,8 @@ printf("Max: %d\n", max);
 	op == '+' ? error = addtrack(&result, op1, op2, max) : error;
 	op == '-' ? error = subtrack(&result, op1, op2, max) : error;
 	op == '*' ? error = multrack(&result, op1, op2, max) : error;
-//	op = '/' ? error = rundiv(&result, &op1, &op2, max) : error;
-//	op = '%' ? error = rundiv(&result, &op1, &op2, max) : error;
+	op == '/' ? error = divtrack(&result, &op1, &op2, 0) : error;
+	op == '%' ? error = divtrack(&result, &op1, &op2, 1) : error;
 	// delhead to protect recursion of division head, which is a composite of
 	// the divisor and temporary dividend
 //printf("delhead: %p\n", (*head));
@@ -177,5 +177,6 @@ void	append(t_list **head)
 		temp = temp->next;
 	}
 	(*head)->numlen = numlen;
+	printf("bottom of append %d\n", numlen);
 }
 

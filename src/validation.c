@@ -54,7 +54,7 @@ int		choose_sign(int *i, char *str, char *base)
 	sign = 1;
 	if ((str[*i] == '*' || str[*i] == '%' || str[*i] == '/') && (*i > 0) &&
 		(ft_find(str[*i - 1], base) == 1 || str[*i - 1] == 41) &&
-		(ft_find(str[*i + 1], base) == 1 || str[*i + 1] == 40))
+		(ft_find(str[*i + 1], base) == 1 || str[*i + 1] == 40 || str[*i + 1] == '-'))
 		return (2);
 	else if (str[*i] == '+' || str[*i] == '-')
 	{
